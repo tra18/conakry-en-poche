@@ -46,23 +46,11 @@ const Header = () => {
           {/* Navigation Desktop */}
                 <nav style={{ display: 'flex', gap: '1.5rem' }}>
                   <Link to="/" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    Accueil
-                  </Link>
-                  <Link to="/traffic" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    Trafic
-                  </Link>
+              Accueil
+            </Link>
                   <Link to="/traffic-map" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
                     Carte Trafic
-                  </Link>
-                  <Link to="/news" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    Actualités
-                  </Link>
-                  <Link to="/allo" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    ALLO Taxi
-                  </Link>
-                  <Link to="/register-business" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
-                    Inscription Entreprise
-                  </Link>
+            </Link>
                   <Link to="/admin" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
                     Administration
                   </Link>
@@ -72,7 +60,7 @@ const Header = () => {
                   <Link to="/contact" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
                     Contact
                   </Link>
-                </nav>
+              </nav>
 
         {/* Menu mobile */}
         <button
