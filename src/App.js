@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import ResponsiveHeader from './components/ResponsiveHeader';
+import ResponsiveFooter from './components/ResponsiveFooter';
 import AIAssistant from './components/AIAssistant';
-import HomePage from './pages/HomePage';
+import ResponsiveHomePage from './pages/ResponsiveHomePage';
 import AdminPanel from './pages/AdminPanel';
 import BusinessRegistrationPage from './pages/BusinessRegistrationPage';
 import CategoryPage from './pages/CategoryPage';
@@ -19,10 +19,10 @@ function App() {
       <BusinessProvider>
         <Router>
           <div className="App">
-            <Header />
+                    <ResponsiveHeader />
             <main>
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<ResponsiveHomePage />} />
                 <Route path="/category/:categorySlug" element={<CategoryPage />} />
                 <Route path="/traffic" element={<TrafficPage />} />
                 <Route path="/traffic-map" element={<TrafficMapPage />} />
@@ -34,7 +34,7 @@ function App() {
                 <Route path="/contact" element={<div style={{padding: '2rem', textAlign: 'center'}}><h1>Contact</h1><p>Page en construction</p></div>} />
               </Routes>
             </main>
-            <Footer />
+                    <ResponsiveFooter />
             <AIAssistant />
           </div>
         </Router>

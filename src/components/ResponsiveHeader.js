@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const ResponsiveHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   return (
     <header style={{
@@ -13,10 +24,7 @@ const Header = () => {
       top: 0,
       zIndex: 50
     }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 1rem',
+      <div className="responsive-container" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
@@ -34,7 +42,7 @@ const Header = () => {
           }}>
             <span style={{ color: 'white', fontWeight: 'bold', fontSize: '1rem' }}>🇬🇳</span>
           </div>
-          <span style={{
+          <span className="header-logo" style={{
             fontSize: '1.25rem',
             fontWeight: 'bold',
             color: '#374151'
@@ -44,12 +52,9 @@ const Header = () => {
         </Link>
 
         {/* Navigation Desktop */}
-        <nav style={{ 
-          display: 'flex', 
-          gap: '1.5rem',
-          '@media (max-width: 768px)': {
-            display: 'none'
-          }
+        <nav className="header-nav" style={{ 
+          display: isMobile ? 'none' : 'flex', 
+          gap: '1.5rem'
         }}>
           <Link to="/" style={{ color: '#6b7280', textDecoration: 'none', transition: 'color 0.2s' }}>
             Accueil
@@ -70,9 +75,10 @@ const Header = () => {
 
         {/* Menu mobile */}
         <button
+          className="mobile-menu-btn"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
-            display: 'none',
+            display: isMobile ? 'block' : 'none',
             padding: '0.5rem',
             color: '#6b7280',
             background: 'none',
@@ -86,7 +92,7 @@ const Header = () => {
       </div>
 
       {/* Menu mobile dropdown */}
-      {isMenuOpen && (
+      {isMenuOpen && isMobile && (
         <div style={{
           position: 'absolute',
           top: '100%',
@@ -141,4 +147,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default ResponsiveHeader;
