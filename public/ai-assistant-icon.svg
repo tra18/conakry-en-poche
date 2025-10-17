@@ -1,0 +1,27 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond circulaire -->
+  <circle cx="32" cy="32" r="32" fill="#374151"/>
+  
+  <!-- Masque africain stylisé -->
+  <g transform="translate(16, 12)">
+    <!-- Forme du visage -->
+    <path d="M16 8 C16 4, 20 2, 24 2 C28 2, 32 4, 32 8 C32 12, 28 14, 24 14 C20 14, 16 12, 16 8 Z" fill="#F3F4F6"/>
+    
+    <!-- Yeux -->
+    <circle cx="20" cy="8" r="2" fill="#374151"/>
+    <circle cx="28" cy="8" r="2" fill="#374151"/>
+    
+    <!-- Nez -->
+    <path d="M24 10 L22 12 L26 12 Z" fill="#374151"/>
+    
+    <!-- Bouche -->
+    <path d="M20 14 Q24 16, 28 14" stroke="#374151" stroke-width="1.5" fill="none"/>
+    
+    <!-- Motifs décoratifs -->
+    <path d="M16 6 L18 4 L20 6 L18 8 Z" fill="#6B7280"/>
+    <path d="M28 6 L30 4 L32 6 L30 8 Z" fill="#6B7280"/>
+    
+    <!-- Coiffe -->
+    <path d="M12 4 L20 2 L28 2 L36 4 L32 6 L20 6 L16 4 Z" fill="#1F2937"/>
+  </g>
+</svg>

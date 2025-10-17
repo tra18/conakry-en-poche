@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Règles pour les utilisateurs
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null && resource.data.role == 'admin';
+    }
+    
+    // Règles pour les entreprises
+    match /businesses/{businessId} {
+      // Lecture publique pour les entreprises approuvées
+      allow read: if resource.data.status == 'approved';
+      
+      // Lecture pour l'utilisateur propriétaire
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      
+      // Lecture pour les admins
+      allow read: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      
+      // Création pour les utilisateurs authentifiés
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.status == 'pending';
+      
+      // Mise à jour pour les admins uniquement
+      allow update: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Règles pour les actualités
+    match /news/{newsId} {
+      // Lecture publique pour les actualités publiées
+      allow read: if resource.data.isPublished == true;
+      
+      // Lecture/écriture pour les admins
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Règles pour les bannières
+    match /banners/{bannerId} {
+      // Lecture publique pour les bannières actives
+      allow read: if resource.data.isActive == true &&
+        resource.data.startDate <= timestamp.now() &&
+        resource.data.endDate >= timestamp.now();
+      
+      // Lecture/écriture pour les admins
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}
+
+
