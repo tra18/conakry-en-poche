@@ -117,3 +117,56 @@ firebase-debug.*.log
 .env.development.local
 .env.test.local
 .env.production.local.env*.local
+
+# npm cache
+.npm-cache/
+.npm/
+
+# Build artifacts
+dist/
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Documentation temporaires (garder seulement README.md principal)
+AMELIORATIONS.md
+COMMANDES-INSTALLATION.txt
+COMMENT-UTILISER-SIGNALEMENTS.md
+DEPLOY-INSTRUCTIONS.md
+DEPLOY-MENU-FIX.md
+DEPLOY-PHASE2.md
+DEPLOYMENT-READY.md
+DEPLOYMENT-SUCCESS.md
+DEPLOYMENT.md
+FIREBASE-CHECKLIST.md
+FIREBASE-DEPLOYMENT.md
+FIREBASE-SETUP.md
+FIRESTORE-SETUP.md
+FIX-FIRESTORE-CORS.md
+FIX-FIRESTORE-PERMISSIONS.md
+FIX-MAP-PAGE.md
+GPS-FEATURES.md
+GUIDE-SIGNALEMENTS-ROUTIERS.md
+GUIDE-UTILISATION-PHASE2.md
+INSTALL-LEAFLET-URGENT.md
+INSTALL-LEAFLET.md
+NOTIFICATIONS-PUSH.md
+NOUVELLE-PAGE-ACCUEIL.md
+README-ADMIN.md
+RESUME-PHASE2.md
+STATUS-INSTALLATION.md
+TEST-*.md
+
+# Test files
+admin-test.html
+*.test.html
+
+# Scripts de déploiement temporaires (optionnel - à garder si utiles)
+# deploy-*.sh
+# install-*.sh
