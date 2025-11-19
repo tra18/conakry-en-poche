@@ -1,0 +1,240 @@
+{
+  "common": {
+    "appName": "Conakry in Pocket",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "header": {
+    "home": "Home",
+    "businesses": "Businesses",
+    "trafficMap": "Traffic Map",
+    "events": "Events",
+    "livingInGuinea": "Living in Guinea",
+    "report": "Report",
+    "register": "Register",
+    "administration": "Administration"
+  },
+  "home": {
+    "title": "Welcome to Conakry",
+    "subtitle": "Discover the best addresses in the Guinean capital",
+    "searchPlaceholder": "Search for a business, service...",
+    "reportRoadIssue": "Report a road issue",
+    "viewRoadReports": "View road reports",
+    "registerBusiness": "Register my business",
+    "statistics": {
+      "businesses": "Businesses",
+      "users": "Users",
+      "averageRating": "Average rating",
+      "categories": "Categories"
+    },
+    "categories": {
+      "title": "Explore by category",
+      "viewAll": "View all categories"
+    },
+    "topBusinesses": {
+      "title": "Popular businesses",
+      "viewAll": "View all businesses"
+    },
+    "activities": {
+      "title": "Ongoing activities",
+      "viewAll": "View all activities"
+    },
+    "events": {
+      "title": "Upcoming events",
+      "viewAll": "View all events"
+    }
+  },
+  "allCategories": {
+    "tagline": "Explore Conakry",
+    "title": "All categories",
+    "subtitle": "Discover every business category available in Conakry",
+    "searchPlaceholder": "Search for a category...",
+    "back": "Back",
+    "register": "Register my business",
+    "statisticsTitle": "{{count}} categories",
+    "resultsFor": "Results for \"{{term}}\"",
+    "allAvailable": "All available categories",
+    "viewGrid": "Grid",
+    "viewList": "List",
+    "explore": "Explore",
+    "cta": "See all categories",
+    "noResultsTitle": "No category found",
+    "noResultsDescription": "Try changing your search or explore every category",
+    "resetFilters": "See all categories",
+    "descriptions": {
+      "restaurants": "Discover unique flavors and authentic restaurants.",
+      "hotels": "Find the best hotels and accommodations.",
+      "pharmacies": "Pharmacies and medicine available 24/7.",
+      "hopitaux": "Health centers, hospitals and medical services.",
+      "banques": "Modern banking and financial services.",
+      "ecoles": "Schools and educational institutions.",
+      "universites": "Higher education and universities.",
+      "transport": "Public and private transportation services.",
+      "shopping": "Shops, malls and shopping spots.",
+      "loisirs": "Entertainment, leisure and recreational activities.",
+      "sport": "Sports activities and fitness centers.",
+      "beaute": "Beauty salons and wellness centers.",
+      "automobile": "Automotive services and garages.",
+      "administration": "Administrative and government services.",
+      "services": "Various professional services.",
+      "autre": "Other categories and assorted services.",
+      "default": "Explore this category to see what's waiting for you."
+    }
+  },
+  "categoryPage": {
+    "tagline": "Category",
+    "backHome": "Back to home",
+    "notFoundTitle": "Category not found",
+    "notFoundDescription": "This category does not exist.",
+    "stats": {
+      "businesses": "Businesses",
+      "topRated": "Top rated"
+    },
+    "businessesTitle": "Businesses ({{count}})",
+    "businessesSubtitle": "Discover the validated businesses in this category",
+    "noFilteredTitle": "No business found",
+    "noFilteredDescription": "Try adjusting your search criteria",
+    "emptyStateTitle": "No business in this category",
+    "emptyStateDescription": "There are no validated businesses yet in the {{category}} category.",
+    "defaultDescription": "Discover the best {{category}} in Conakry"
+  },
+  "bottomNav": {
+    "home": "Home",
+    "explore": "Explore",
+    "report": "Report",
+    "search": "Search"
+  },
+  "reportIssue": {
+    "title": "Report a road issue",
+    "subtitle": "Help the community by reporting works, accidents or traffic jams",
+    "anonymous": "✅ No login required — feel free to report!",
+    "successTitle": "Report sent successfully!",
+    "successDescription": "Your submission will be reviewed before it becomes visible to everyone.",
+    "form": {
+      "typeLabel": "Report type *",
+      "titleLabel": "Report title *",
+      "titlePlaceholder": "e.g. Road works near the airport",
+      "descriptionLabel": "Description (optional)",
+      "descriptionPlaceholder": "Add more details about the issue...",
+      "userInfoNotice": "💡 Optional information (in case we need to contact you)",
+      "userNameLabel": "Your name (optional)",
+      "userEmailLabel": "Your email (optional)",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "you@email.com",
+      "locationLabel": "Location *",
+      "locationPlaceholder": "e.g. Avenue de la République, Conakry",
+      "locationHint": "Enter the address, use GPS or speak to share your position",
+      "photoLabel": "Photo (optional)",
+      "photoCTA": "Click to add a photo",
+      "photoHelp": "PNG, JPG up to 5MB",
+      "gpsButton": "GPS",
+      "gpsLoading": "Loading...",
+      "photoRemove": "Remove photo",
+      "voiceStart": "Voice",
+      "voiceStop": "Stop",
+      "voiceStartTooltip": "Speak to fill this field",
+      "voiceStopTooltip": "Stop voice recording"
+    },
+    "voice": {
+      "recording": "Recording..."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Submit report",
+      "submitting": "Sending..."
+    },
+    "errors": {
+      "selectType": "Please select a report type",
+      "titleRequired": "Please enter a title",
+      "locationRequired": "Please provide the location",
+      "permission": "Make sure your Firestore rules allow anonymous reports."
+    },
+    "toasts": {
+      "geoNotSupported": "Geolocation is not supported by your browser",
+      "imageType": "Please select an image",
+      "imageSize": "Image is too large (max 5MB)"
+    },
+    "status": {
+      "geoSuccess": "Location captured successfully!",
+      "geoFailed": "Unable to get your position"
+    }
+  },
+  "roadReports": {
+    "title": "Road reports",
+    "loading": "Loading reports...",
+    "filterButton": "Filter",
+    "filters": {
+      "all": "All"
+    },
+    "countTotal": "{{count}} report{{plural}} total",
+    "countFiltered": "{{count}} report{{plural}} of this type",
+    "noReportsTitle": "No report",
+    "noReportsDescription": "No validated report yet.",
+    "noReportsFiltered": "No report of this type yet.",
+    "photoIncluded": "Photo included",
+    "defaultType": "Report",
+    "time": {
+      "justNow": "Just now",
+      "minutes": "{{count}} min ago",
+      "hours": "{{count}} h ago",
+      "days": "{{count}} d ago",
+      "unknown": "Unknown date"
+    }
+  },
+  "categories": {
+    "title": "All categories",
+    "subtitle": "Explore businesses by category",
+    "searchPlaceholder": "Search for a category...",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "noResults": "No category found",
+    "backToHome": "Back to home"
+  },
+  "category": {
+    "title": "Businesses",
+    "businesses": "businesses",
+    "searchPlaceholder": "Search for a business...",
+    "noBusinesses": "No business in this category",
+    "registerBusiness": "Register my business",
+    "backToHome": "Back to home",
+    "backToCategories": "Back to categories"
+  },
+  "business": {
+    "rating": "Rating",
+    "reviews": "reviews",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website",
+    "schedule": "Schedule",
+    "description": "Description",
+    "getDirections": "Get directions",
+    "call": "Call",
+    "share": "Share"
+  },
+  "footer": {
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "adminAccess": "Admin access"
+  },
+  "language": {
+    "french": "Français",
+    "english": "English",
+    "changeLanguage": "Change language"
+  }
+}
+

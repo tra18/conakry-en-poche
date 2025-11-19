@@ -88,6 +88,19 @@ const ResponsiveFooter = () => {
           fontSize: '0.875rem' 
         }}>
           <p>&copy; 2024 Conakry en Poche. Tous droits réservés.</p>
+          <div style={{ marginTop: '0.35rem' }}>
+            <Link 
+              to="/admin"
+              style={{
+                color: '#9ca3af',
+                textDecoration: 'none',
+                fontSize: '0.75rem',
+                opacity: 0.6
+              }}
+            >
+              Accès administration
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

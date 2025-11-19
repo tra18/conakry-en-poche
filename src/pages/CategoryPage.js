@@ -1,27 +1,26 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useBusiness } from '../contexts/BusinessContext';
+import { safariEventHandlers } from '../utils/safariClickHandler';
 import BusinessCard from '../components/BusinessCard';
+import BusinessAdvancedSearch from '../components/BusinessAdvancedSearch';
+import { List, Navigation } from 'lucide-react';
 
 const CategoryPage = () => {
+  const navigate = useNavigate();
   const { categorySlug } = useParams();
-  const { getBusinessesByCategory } = useBusiness();
+  const { getBusinessesByCategory, categories } = useBusiness();
+  const [viewMode] = useState('list'); // Mode liste uniquement
+  const [selectedBusiness, setSelectedBusiness] = useState(null);
+  const [filteredBusinesses, setFilteredBusinesses] = useState([]);
 
-  const categories = [
-    { id: 1, name: 'Hôtels', icon: '🏨', description: 'Trouvez les meilleurs hôtels.', slug: 'hotels' },
-    { id: 2, name: 'Restaurants', icon: '🍽️', description: 'Découvrez des saveurs uniques.', slug: 'restaurants' },
-    { id: 3, name: 'Loisirs', icon: '🎭', description: 'Activités et divertissements.', slug: 'loisirs' },
-    { id: 4, name: 'Administrations', icon: '🏛️', description: 'Services publics et bureaux.', slug: 'administrations' },
-    { id: 5, name: 'Hôpitaux', icon: '🏥', description: 'Centres de santé et hôpitaux.', slug: 'hopitaux' },
-    { id: 6, name: 'Pharmacies', icon: '💊', description: 'Pharmacies et médicaments.', slug: 'pharmacies' },
-    { id: 7, name: 'Entreprises', icon: '🏢', description: 'Entreprises et services.', slug: 'entreprises' },
-    { id: 8, name: 'Aires de Jeux', icon: '🎠', description: 'Espaces de jeux pour enfants.', slug: 'aires-jeux' },
-    { id: 9, name: 'Écoles', icon: '🎓', description: 'Établissements scolaires.', slug: 'ecoles' },
-    { id: 10, name: 'Universités', icon: '🏫', description: 'Enseignement supérieur.', slug: 'universites' },
-  ];
-
-  const currentCategory = categories.find(cat => cat.slug === categorySlug);
+  const currentCategory = categories.find(cat => cat.id === categorySlug);
   const businesses = getBusinessesByCategory(categorySlug);
+
+  React.useEffect(() => {
+    setFilteredBusinesses(businesses);
+  }, [businesses]);
+
 
   if (!currentCategory) {
     return (
@@ -29,19 +28,38 @@ const CategoryPage = () => {
         <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
           <h1 style={{ fontSize: '2rem', color: '#ef4444', marginBottom: '1rem' }}>Catégorie non trouvée</h1>
           <p style={{ color: '#6b7280', marginBottom: '2rem' }}>Cette catégorie n'existe pas.</p>
-          <Link 
-            to="/" 
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigate('/');
+            }}
             style={{
               backgroundColor: '#4b5563',
               color: 'white',
               padding: '0.75rem 1.5rem',
               borderRadius: '0.5rem',
               textDecoration: 'none',
-              fontWeight: '600'
+              fontWeight: '600',
+              position: 'relative',
+              zIndex: 100,
+              pointerEvents: 'auto',
+              transition: 'all 0.2s',
+              border: 'none',
+              fontFamily: 'inherit',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#374151';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#4b5563';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             Retour à l'accueil
-          </Link>
+          </button>
         </div>
       </div>
     );
@@ -59,23 +77,63 @@ const CategoryPage = () => {
                 {currentCategory.name}
               </h1>
               <p style={{ fontSize: '1.125rem', color: '#6b7280', margin: 0 }}>
-                {currentCategory.description}
+                {currentCategory.description || `Découvrez les ${currentCategory.name.toLowerCase()} de Conakry`}
               </p>
             </div>
           </div>
-          <Link 
-            to="/" 
+          
+          {/* Recherche avancée */}
+          <div style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
+            <BusinessAdvancedSearch
+              onBusinessSelect={(business) => {
+                setSelectedBusiness(business);
+                setViewMode('list');
+                // Scroll vers l'entreprise sélectionnée
+                setTimeout(() => {
+                  const element = document.getElementById(`business-${business.id}`);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }, 100);
+              }}
+            />
+          </div>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigate('/');
+            }}
             style={{
               color: '#4b5563',
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              fontWeight: '600'
+              fontWeight: '600',
+              position: 'relative',
+              zIndex: 100,
+              pointerEvents: 'auto',
+              transition: 'all 0.2s',
+              padding: '0.5rem 1rem',
+              borderRadius: '0.375rem',
+              border: 'none',
+              background: 'transparent',
+              fontFamily: 'inherit',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#f3f4f6';
+              e.currentTarget.style.color = '#1f2937';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#4b5563';
             }}
           >
             ← Retour à l'accueil
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -98,9 +156,30 @@ const CategoryPage = () => {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
                 gap: '1.5rem'
               }}>
-                {businesses.map((business) => (
-                  <BusinessCard key={business.id} business={business} />
-                ))}
+                {filteredBusinesses.length > 0 ? (
+                  filteredBusinesses.map((business) => (
+                    <div key={business.id} id={`business-${business.id}`}>
+                      <BusinessCard 
+                        business={business}
+                        style={{
+                          border: selectedBusiness?.id === business.id ? '3px solid #3b82f6' : undefined
+                        }}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div style={{
+                    gridColumn: '1 / -1',
+                    textAlign: 'center',
+                    padding: '3rem',
+                    backgroundColor: 'white',
+                    borderRadius: '1rem'
+                  }}>
+                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>
+                      Aucune entreprise trouvée avec ces critères
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -119,8 +198,12 @@ const CategoryPage = () => {
                 Il n'y a pas encore d'entreprises validées dans la catégorie {currentCategory.name.toLowerCase()}.
               </p>
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link
-                  to="/register-business"
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate(`/register-business?category=${categorySlug}`);
+                  }}
                   style={{
                     backgroundColor: '#10b981',
                     color: 'white',
@@ -130,24 +213,58 @@ const CategoryPage = () => {
                     fontWeight: '600',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.5rem'
+                    gap: '0.5rem',
+                    position: 'relative',
+                    zIndex: 100,
+                    pointerEvents: 'auto',
+                    transition: 'all 0.2s',
+                    border: 'none',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#059669';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#10b981';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   🏢 Inscrire mon entreprise
-                </Link>
-                <Link
-                  to="/"
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate('/');
+                  }}
                   style={{
                     backgroundColor: '#4b5563',
                     color: 'white',
                     padding: '0.75rem 1.5rem',
                     borderRadius: '0.5rem',
                     textDecoration: 'none',
-                    fontWeight: '600'
+                    fontWeight: '600',
+                    position: 'relative',
+                    zIndex: 100,
+                    pointerEvents: 'auto',
+                    transition: 'all 0.2s',
+                    border: 'none',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#374151';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#4b5563';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   Retour à l'accueil
-                </Link>
+                </button>
               </div>
             </div>
           )}

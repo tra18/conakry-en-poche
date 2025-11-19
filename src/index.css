@@ -174,6 +174,53 @@ code {
   }
 }
 
+/* Correctifs Safari pour les boutons et liens */
+button,
+a,
+[role="button"],
+[role="link"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto !important;
+}
+
+/* Assurer que les éléments interactifs sont cliquables sur Safari */
+button:not(:disabled),
+a:not([disabled]),
+[role="button"]:not([disabled]),
+[role="link"]:not([disabled]) {
+  cursor: pointer;
+}
+
+/* Correctif spécifique Safari : forcer les liens React Router à être cliquables */
+a[href]:not([href^="http"]):not([href^="mailto:"]):not([href^="tel:"]):not([href^="#"]) {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Assurer que les liens dans les dropdowns sont cliquables sur Safari */
+div[data-dropdown-container] a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Améliorer la réactivité tactile sur Safari mobile */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  [role="button"],
+  [role="link"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* Loading spinner */
 .spinner {
   width: 20px;
@@ -187,6 +234,17 @@ code {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
 }
 
 

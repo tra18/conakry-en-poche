@@ -19,241 +19,303 @@ export function AIAssistantProvider({ children }) {
   const [hasShownWelcome, setHasShownWelcome] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Base de connaissances sur Conakry
+  // Base de connaissances sur Conakry (FR/EN)
   const knowledgeBase = {
     fr: {
       categories: {
         general: {
-          name: "Informations Générales",
+          name: 'Informations générales',
           responses: [
-            "Conakry est la capitale de la Guinée, située sur la côte atlantique. C'est la plus grande ville du pays avec environ 2 millions d'habitants.",
-            "La ville est divisée en 5 communes : Kaloum (centre-ville), Dixinn, Matam, Matoto et Ratoma.",
-            "Conakry est le centre économique et politique de la Guinée, abritant le port principal et l'aéroport international."
+            'Conakry est la capitale de la Guinée et compte plus de 2 millions d’habitants répartis sur 5 communes : Kaloum, Dixinn, Matam, Matoto et Ratoma.',
+            'Le climat est tropical avec une saison sèche d’octobre à mai et une saison des pluies de juin à septembre.',
+            'Les codes utiles : indicatif téléphonique +224, tension électrique 220V, circulation à droite.',
+            'Le port autonome et l’aéroport international Ahmed Sékou Touré sont les portes d’entrée principales.'
           ]
         },
         transport: {
-          name: "Transport",
+          name: 'Transports et déplacements',
           responses: [
-            "Les taxis rouges sont le moyen de transport le plus populaire. Prix : 5000-15000 GNF selon la distance.",
-            "L'aéroport international Gbessia se trouve à 15km du centre-ville.",
-            "Des bus publics relient les différentes communes de Conakry.",
-            "Le port autonome de Conakry est le principal port de commerce du pays."
+            'Les taxis rouges partagés sont le moyen le plus courant. Prévoir 5 000 à 20 000 GNF selon la distance.',
+            'Pour se déplacer rapidement, utilisez les applications locales « Gozem » ou « Yango » (motos et voitures).',
+            'L’aéroport international se situe à Gbessia (commune de Matoto), comptez 30 à 45 minutes vers Kaloum selon le trafic.',
+            'Des bateaux relient le port de Boulbinet aux îles de Loos plusieurs fois par jour.'
           ]
         },
-        tourisme: {
-          name: "Tourisme",
+        tourism: {
+          name: 'Tourisme et découvertes',
           responses: [
-            "Les sites incontournables : Musée national, Palais du peuple, Marché de Madina, Îles de Loos.",
-            "Les plages populaires : Bel Air, Rogbané, et les îles de Loos accessibles en bateau.",
-            "Le Jardin botanique de Conakry abrite une flore tropicale exceptionnelle.",
-            "Le Centre culturel franco-guinéen propose des événements culturels réguliers."
+            'Incontournables : îles de Loos, plage de Bel-Air, Musée national, Palais du peuple, marché de Madina.',
+            'Pour une escapade nature : les cascades de la Soumba et le massif du Fouta Djalon (5h de route).',
+            'Le Centre culturel franco-guinéen propose concerts, expositions et projections toute l’année.',
+            'Pour les couchers de soleil, rendez-vous sur la corniche de Camayenne ou à la plage de Rogbané.'
           ]
         },
-        gastronomie: {
-          name: "Gastronomie",
+        gastronomy: {
+          name: 'Gastronomie',
           responses: [
-            "Plats typiques : Riz au gras, Poulet Yassa, Mafé, Fou fou, Sauce graine.",
-            "Marchés alimentaires : Marché de Madina (le plus grand), Marché de Matam.",
-            "Restaurants recommandés : Restaurant Le Damier, La Paillote, Le Petit Bateau.",
-            "Boissons locales : Jus de gingembre, Bissap, Dabileni (jus de tamarin)."
+            'Spécialités à goûter : riz au gras, soupe kandia, poulet DG, poisson braisé, brochettes de cœur.',
+            'Les marchés de Madina et de Bonfi regorgent de poissons frais, fruits tropicaux et épices.',
+            'Restaurants recommandés : Le Damier (Kaloum), La Paillote (Corniche), La Porte du Soleil (Ratoma).',
+            'Boissons locales : bissap, jus de gingembre, palm wine, smoothies de fruits tropicaux.'
           ]
         },
         shopping: {
-          name: "Shopping",
+          name: 'Shopping & artisanat',
           responses: [
-            "Marchés principaux : Madina (vêtements, artisanat), Matam (électronique), Marché Niger (alimentaire).",
-            "Centres commerciaux : Palm Camayenne, Kipé Centre Commercial.",
-            "Artisanat local : Masques, sculptures en bois, bijoux en or, tissus traditionnels.",
-            "Horaires : Les marchés sont ouverts de 7h à 19h, fermés le dimanche pour certains."
+            'Le marché de Madina est le plus vaste pour les tissus, wax, perles et objets artisanaux.',
+            'Pour des produits haut de gamme : centre commercial Prima Center à Kipé ou esplanade de la Paillote.',
+            'Pensez à négocier, c’est une pratique courante ; commencez autour de 60 % du prix proposé.',
+            'Articles typiques : masques baga, djembés, panier en raphia, bijoux en or de Siguiri.'
           ]
         },
-        sante: {
-          name: "Santé",
+        health: {
+          name: 'Santé & urgences',
           responses: [
-            "Hôpitaux principaux : CHU de Donka, Hôpital Ignace Deen, Clinique Pasteur.",
-            "Pharmacies : Réparties dans tous les quartiers, ouvertes généralement de 8h à 20h.",
-            "Urgences : Appelez le 117 pour les urgences médicales.",
-            "Vaccins recommandés : Fièvre jaune, Hépatite A et B, Typhoïde."
+            'Hôpitaux de référence : CHU de Donka (Kaloum), Hôpital Ignace Deen, Clinique Pasteur.',
+            'Numéros utiles : SAMU 119, Police 117, Pompiers 118.',
+            'Prévoyez une assurance santé couvrant l’évacuation médicale vers Dakar ou Casablanca.',
+            'Apportez une trousse avec antipaludéens, pansements, gels hydroalcooliques et répulsif anti-moustiques.'
           ]
         },
-        securite: {
-          name: "Sécurité",
+        safety: {
+          name: 'Sécurité',
           responses: [
-            "Conakry est généralement sûre, mais évitez de circuler seul la nuit dans certains quartiers.",
-            "Gardez vos documents d'identité sur vous en permanence.",
-            "Numéros d'urgence : Police 117, Pompiers 18.",
-            "Évitez de montrer de l'argent ou des objets de valeur dans les lieux publics."
+            'Évitez de circuler seul tard le soir dans les zones peu éclairées et préférez les taxis connus.',
+            'Gardez une photocopie de votre passeport et les originaux dans un endroit sécurisé.',
+            'Soyez vigilants dans les embouteillages : gardez vitres fermées et portes verrouillées.',
+            'Les manifestations peuvent survenir : suivez l’actualité locale et éloignez-vous des regroupements.'
           ]
         },
         culture: {
-          name: "Culture",
+          name: 'Culture & traditions',
           responses: [
-            "Langues parlées : Français (officiel), Sousou, Peul, Malinké, Kissi.",
-            "Fêtes nationales : Fête de l'indépendance (2 octobre), Jour de la République (3 avril).",
-            "Musique : Conakry est le berceau de la musique guinéenne moderne.",
-            "Religions : Islam (majoritaire), Christianisme, Animisme."
+            'Langues nationales : soussou autour de Conakry, peul en Moyenne-Guinée, malinké en Haute-Guinée.',
+            'La musique mandingue et les ballets africains sont omniprésents lors des cérémonies.',
+            'Respectez les coutumes : salutations chaleureuses, main droite pour donner/recevoir, tenue décente.',
+            'Calendrier : concerts urbains à Taouyah, spectacles au Centre culturel franco-guinéen, matchs au Stade GLC.'
           ]
         },
-        economie: {
-          name: "Économie",
+        economy: {
+          name: 'Économie & affaires',
           responses: [
-            "Monnaie : Franc guinéen (GNF). 1 USD ≈ 8600 GNF (2024).",
-            "Secteurs clés : Mines (bauxite), Agriculture, Pêche, Commerce.",
-            "Banques principales : BICIGUI, Ecobank, UGB, Orabank.",
-            "Heures de bureau : 8h-16h30 du lundi au vendredi."
+            'Monnaie : Franc guinéen (GNF). Retraits possibles aux banques BICIGUI, Ecobank, UBA.',
+            'Secteurs porteurs : mines (bauxite), télécoms, énergie solaire, agro-transformation.',
+            'Formalités : prévoir un Registre du Commerce et du Crédit Mobilier (RCCM) et s’inscrire au guichet unique de l’APIP.',
+            'Espèces largement utilisées ; les cartes Visa fonctionnent dans les hôtels et supermarchés principaux.'
           ]
         },
         education: {
-          name: "Éducation",
+          name: 'Éducation',
           responses: [
-            "Universités : Université Gamal Abdel Nasser, Université Général Lansana Conté.",
-            "Écoles internationales : École française, American School of Conakry.",
-            "Centres de formation : Institut Supérieur de Technologie, École Nationale d'Administration.",
-            "Bibliothèques : Bibliothèque nationale, Centre culturel franco-guinéen."
+            'Établissements supérieurs : Université Gamal Abdel Nasser (sciences), Université Sonfonia (économie), ENAM (administration).',
+            'Écoles internationales : Lycée français Albert Camus, American International School, École Bilingue de Conakry.',
+            'Centres linguistiques : Institut français, British Council, centres privés à Kipé et Ratoma.',
+            'Pour les jeunes enfants : nombreuses crèches bilingues à Kipé, Lambanyi et Taouyah.'
+          ]
+        },
+        housing: {
+          name: 'Logement & vie pratique',
+          responses: [
+            'Quartiers résidentiels prisés : Kaporo, Nongo, Lambanyi pour les villas et appartements modernes.',
+            'Pour une colocation abordable, explorez Ratoma et Kobayah (accès aux universités).',
+            'Contrats de location : prévoir 3 mois de caution + 1 mois frais d’agence, vérifier inclusions eau/électricité.',
+            'Électricité : coupes fréquentes, privilégiez les logements avec groupe électrogène ou panneaux solaires.'
+          ]
+        },
+        administration: {
+          name: 'Démarches administratives',
+          responses: [
+            'Visa touristique délivré par les ambassades de Guinée ou en ligne via guineevisa.com, durée 30 à 90 jours.',
+            'Pour un long séjour : carte de résidence délivrée à la Direction Centrale de la Police (quartier Coléah).',
+            'Documents utiles : passeport valable 6 mois, carnet de vaccination, lettre d’invitation si nécessaire.',
+            'L’APIP (Agence de Promotion des Investissements Privés) propose un guichet unique pour créer une entreprise en 72h.'
+          ]
+        },
+        weather: {
+          name: 'Climat & météo',
+          responses: [
+            'Saison sèche : octobre à mai, températures 25‑32 °C, idéale pour les excursions.',
+            'Saison des pluies : juin à septembre, pluies abondantes et routes parfois inondées ; prévoyez des trajets plus longs.',
+            'Humidité élevée toute l’année, privilégiez des vêtements légers en coton et hydratez-vous.',
+            'Consultez la météo locale ou des apps comme Windy/Open-Meteo avant les déplacements interurbains.'
           ]
         }
       },
       greetings: [
-        "Bonjour ! Je suis Nimba, votre assistant virtuel pour Conakry. Comment puis-je vous aider aujourd'hui ?",
-        "Salut ! Bienvenue sur Conakry en Poche. Je suis Nimba, votre guide intelligent de la capitale guinéenne. Que souhaitez-vous savoir ?",
-        "Bonjour ! Je suis Nimba, votre assistant personnel pour Conakry. Avez-vous des questions sur notre belle ville ?",
-        "Salut ! Je suis Nimba, l'assistant IA de Conakry en Poche. Je connais tous les secrets de la capitale guinéenne !"
+        'Bonjour ! Je suis Nimba, votre assistant IA pour Conakry. Comment puis-je vous aider aujourd’hui ?',
+        'Salut ! Je suis Nimba, guide virtuel de Conakry en Poche. Besoin d’un itinéraire, d’un resto ou d’une astuce locale ?',
+        'Bienvenue sur Conakry en Poche ! Je connais les transports, les administrations, les sorties et plus encore.',
+        'Hello ! Ici Nimba. Vous pouvez me parler en français ou en anglais, je réponds aux deux.'
       ],
       fallbacks: [
-        "Je ne suis pas sûr de comprendre votre question. Pouvez-vous la reformuler ?",
-        "Je n'ai pas d'informations précises sur ce sujet. Essayez de poser votre question différemment.",
-        "Pardon, je n'ai pas la réponse à cette question. Voulez-vous que je vous aide avec autre chose ?"
+        'Je ne suis pas sûr de comprendre. Pouvez-vous reformuler ou préciser votre demande ?',
+        'Je n’ai pas encore cette information en base. Voulez-vous que je vous oriente vers une catégorie générale ?',
+        'Désolé, je n’ai pas la réponse exacte. Essayez de poser votre question différemment.'
       ]
     },
     en: {
       categories: {
         general: {
-          name: "General Information",
+          name: 'General information',
           responses: [
-            "Conakry is the capital of Guinea, located on the Atlantic coast. It's the largest city in the country with about 2 million inhabitants.",
-            "The city is divided into 5 communes: Kaloum (downtown), Dixinn, Matam, Matoto and Ratoma.",
-            "Conakry is the economic and political center of Guinea, housing the main port and international airport."
+            'Conakry is Guinea’s capital with over 2 million residents spread across Kaloum, Dixinn, Matam, Matoto and Ratoma.',
+            'Tropical climate: dry season (Oct‑May) / rainy season (Jun‑Sep). Average temperatures 25‑32 °C.',
+            'Useful codes: country dial +224, power 220 V, right-hand traffic.',
+            'Main gateways are the Autonomous Port of Conakry and Ahmed Sékou Touré International Airport.'
           ]
         },
         transport: {
-          name: "Transportation",
+          name: 'Transportation',
           responses: [
-            "Red taxis are the most popular means of transport. Price: 5000-15000 GNF depending on distance.",
-            "Gbessia International Airport is located 15km from downtown.",
-            "Public buses connect the different communes of Conakry.",
-            "The Autonomous Port of Conakry is the country's main commercial port."
+            'Red shared taxis are the most common option. Budget 5,000‑20,000 GNF depending on distance.',
+            'Use local ride-hailing apps like Gozem or Yango for safer rides (motorbikes & cars).',
+            'Airport transfers to downtown take 30‑45 minutes depending on traffic; negotiate fares before boarding.',
+            'Boats depart daily from Boulbinet pier to the Loos Islands (20‑30 min crossing).'
           ]
         },
-        tourisme: {
-          name: "Tourism",
+        tourism: {
+          name: 'Tourism & sightseeing',
           responses: [
-            "Must-see sites: National Museum, People's Palace, Madina Market, Loos Islands.",
-            "Popular beaches: Bel Air, Rogbané, and the Loos Islands accessible by boat.",
-            "The Conakry Botanical Garden houses exceptional tropical flora.",
-            "The Franco-Guinean Cultural Center offers regular cultural events."
+            'Must-see spots: Loos Islands, Bel-Air beach, National Museum, People’s Palace, Madina Market.',
+            'Nature escapes: Soumba waterfalls, Fouta Djalon highlands (5h road trip).',
+            'The Franco-Guinean Cultural Center hosts concerts, exhibitions and film screenings all year.',
+            'Best sunset spots: Camayenne corniche, Rogbané beach, panoramic bars in Kipé.'
           ]
         },
-        gastronomie: {
-          name: "Gastronomy",
+        gastronomy: {
+          name: 'Food & gastronomy',
           responses: [
-            "Typical dishes: Rice with sauce, Chicken Yassa, Mafé, Fou fou, Graine sauce.",
-            "Food markets: Madina Market (largest), Matam Market.",
-            "Recommended restaurants: Restaurant Le Damier, La Paillote, Le Petit Bateau.",
-            "Local drinks: Ginger juice, Bissap, Dabileni (tamarind juice)."
+            'Signature dishes: riz au gras, soup kandia, chicken DG, grilled fish, peanut stew.',
+            'Madina and Bonfi markets are perfect for fresh seafood, spices and tropical fruits.',
+            'Recommended restaurants: Le Damier (Kaloum), La Paillote (seafront), La Porte du Soleil (Ratoma).',
+            'Try local drinks: ginger juice, hibiscus (bissap), palm wine, fresh tropical smoothies.'
           ]
         },
         shopping: {
-          name: "Shopping",
+          name: 'Shopping & crafts',
           responses: [
-            "Main markets: Madina (clothing, crafts), Matam (electronics), Niger Market (food).",
-            "Shopping centers: Palm Camayenne, Kipé Commercial Center.",
-            "Local crafts: Masks, wood carvings, gold jewelry, traditional fabrics.",
-            "Hours: Markets are open from 7am to 7pm, closed on Sundays for some."
+            'Madina market is the go-to for wax fabrics, jewelry and handicrafts; go early to avoid crowds.',
+            'Modern malls: Prima Center (Kipé), Casino supermarket, Taouyah plaza.',
+            'Always negotiate politely; starting at 60% of the price is common practice.',
+            'Typical souvenirs: Baga masks, djembe drums, gold jewelry from Siguiri, raffia baskets.'
           ]
         },
-        sante: {
-          name: "Health",
+        health: {
+          name: 'Health & emergencies',
           responses: [
-            "Main hospitals: CHU de Donka, Ignace Deen Hospital, Pasteur Clinic.",
-            "Pharmacies: Distributed in all neighborhoods, generally open from 8am to 8pm.",
-            "Emergencies: Call 117 for medical emergencies.",
-            "Recommended vaccines: Yellow fever, Hepatitis A and B, Typhoid."
+            'Reference facilities: Donka Teaching Hospital, Ignace Deen Hospital, Clinique Pasteur.',
+            'Emergency numbers: SAMU 119, Police 117, Fire brigade 118.',
+            'Make sure your travel insurance covers medical evacuation to Dakar or Casablanca.',
+            'Pack anti-malarials, rehydration salts, mosquito repellent and a basic first-aid kit.'
           ]
         },
-        securite: {
-          name: "Security",
+        safety: {
+          name: 'Safety tips',
           responses: [
-            "Conakry is generally safe, but avoid walking alone at night in some neighborhoods.",
-            "Keep your identity documents with you at all times.",
-            "Emergency numbers: Police 117, Firefighters 18.",
-            "Avoid showing money or valuables in public places."
+            'Avoid isolated areas late at night and prefer trusted taxis or ride-hailing apps.',
+            'Keep photocopies of passport/visa and store originals safely.',
+            'During heavy traffic jams keep windows up and doors locked.',
+            'Monitor local news: demonstrations can happen; steer clear of large gatherings.'
           ]
         },
         culture: {
-          name: "Culture",
+          name: 'Culture & customs',
           responses: [
-            "Spoken languages: French (official), Susu, Fulani, Mandinka, Kissi.",
-            "National holidays: Independence Day (October 2), Republic Day (April 3).",
-            "Music: Conakry is the cradle of modern Guinean music.",
-            "Religions: Islam (majority), Christianity, Animism."
+            'Local languages: Susu in Conakry, Peul/Fula in Middle Guinea, Malinké in Upper Guinea.',
+            'Music and dance are central; you’ll often see live performances at weddings and community events.',
+            'Dress modestly when visiting administrative offices or religious sites.',
+            'Popular yearly events: Jazz in Ratoma, Independence Day parade, football matches at GLC Stadium.'
           ]
         },
-        economie: {
-          name: "Economy",
+        economy: {
+          name: 'Economy & business',
           responses: [
-            "Currency: Guinean Franc (GNF). 1 USD ≈ 8600 GNF (2024).",
-            "Key sectors: Mining (bauxite), Agriculture, Fishing, Trade.",
-            "Main banks: BICIGUI, Ecobank, UGB, Orabank.",
-            "Office hours: 8am-4:30pm Monday to Friday."
+            'Currency: Guinean Franc (GNF). ATMs available at BICIGUI, Ecobank, UBA, Orabank branches.',
+            'High-potential sectors: bauxite mining, renewable energy, fintech, agro-processing.',
+            'Business formalities handled at APIP (one-stop shop) in Kaloum within 72 hours.',
+            'Cash is king; Visa cards accepted in major hotels, supermarkets and airlines only.'
           ]
         },
         education: {
-          name: "Education",
+          name: 'Education',
           responses: [
-            "Universities: Gamal Abdel Nasser University, General Lansana Conté University.",
-            "International schools: French School, American School of Conakry.",
-            "Training centers: Higher Institute of Technology, National School of Administration.",
-            "Libraries: National Library, Franco-Guinean Cultural Center."
+            'Higher education: Gamal Abdel Nasser University (science), Sonfonia University (economics), ENAM (public administration).',
+            'International schools: Lycée Français Albert Camus, American International School, bilingual nurseries in Kipé/Lambanyi.',
+            'Language centers: Institut Français, British Council, private academies in Taouyah and Koloma.',
+            'For research, visit the National Library or campus libraries in Donka and Sonfonia.'
+          ]
+        },
+        housing: {
+          name: 'Housing & living',
+          responses: [
+            'Expat-friendly neighborhoods: Kaporo, Nongo, Lambanyi, Kipé (modern villas, sea view).',
+            'For shared housing on a budget, check listings in Ratoma, Kobaya and Sonfonia.',
+            'Standard leases require 3 months deposit + 1 month agency fees; clarify what utilities are included.',
+            'Power outages occur frequently; choose accommodations with backup generators or solar panels.'
+          ]
+        },
+        administration: {
+          name: 'Administrative support',
+          responses: [
+            'Apply for tourist e-visas via guineevisa.com, processing within 3‑5 working days.',
+            'Residence cards are issued by the Central Police HQ in Coléah; bring passport, photos, proof of address.',
+            'APIP in Kaloum handles company creation, tax ID and social registration in a single visit.',
+            'Keep digital copies of documents (passport, visa, residence card) in secure cloud storage.'
+          ]
+        },
+        weather: {
+          name: 'Weather & seasons',
+          responses: [
+            'Dry season (Nov‑May) offers sunny skies and cooler evenings—ideal for beach trips and upcountry travel.',
+            'Rainy season (Jun‑Oct) brings heavy showers, especially in July/August; plan extra time for traffic.',
+            'Humidity stays high year-round, so hydrate often and wear breathable fabrics.',
+            'Check local forecasts (Windy, Open-Meteo) before intercity travel or boat excursions.'
           ]
         }
       },
       greetings: [
-        "Hello! I'm Nimba, your virtual assistant for Conakry. How can I help you today?",
-        "Hi! Welcome to Conakry en Poche. I'm Nimba, your intelligent guide to the Guinean capital. What would you like to know?",
-        "Hello! I'm Nimba, your personal assistant for Conakry. Do you have any questions about our beautiful city?",
-        "Hi! I'm Nimba, the AI assistant of Conakry en Poche. I know all the secrets of the Guinean capital!"
+        'Hello! I’m Nimba, your bilingual AI assistant for Conakry. Feel free to ask me anything.',
+        'Hi there! Need a restaurant, a taxi tip or administrative advice? Nimba is here to help.',
+        'Welcome to Conakry en Poche! I speak English and French—just type your question.',
+        'Hey! I know the city’s best beaches, hospitals, offices and shortcuts. What are you looking for?'
       ],
       fallbacks: [
-        "I'm not sure I understand your question. Could you rephrase it?",
-        "I don't have specific information on this topic. Try asking your question differently.",
-        "Sorry, I don't have the answer to this question. Would you like me to help you with something else?"
+        'I’m not sure I got that. Could you rephrase or add a few details?',
+        'I don’t have that info yet, but I can guide you to a general category. Want to try?',
+        'Sorry, I can’t answer this one. Ask me something about transport, food, safety or daily life!'
       ]
     }
   };
 
-  // Mots-clés pour détecter les catégories
+  // Mots-clés pour détecter les catégories (mêmes clés que knowledgeBase)
   const keywords = {
     fr: {
-      transport: ['taxi', 'transport', 'bus', 'aéroport', 'port', 'déplacement', 'voyage'],
-      tourisme: ['tourisme', 'visite', 'plage', 'musée', 'monument', 'site', 'loos', 'bel air'],
-      gastronomie: ['restaurant', 'manger', 'cuisine', 'plat', 'boisson', 'marché', 'aliment'],
-      shopping: ['magasin', 'marché', 'achat', 'shopping', 'artisanat', 'souvenir'],
-      sante: ['hôpital', 'médecin', 'pharmacie', 'santé', 'urgences', 'maladie'],
-      securite: ['sécurité', 'danger', 'police', 'urgence', 'sûr', 'risque'],
-      culture: ['culture', 'langue', 'religion', 'musique', 'tradition', 'fête'],
-      economie: ['argent', 'banque', 'prix', 'coût', 'monnaie', 'échange'],
-      education: ['école', 'université', 'étudier', 'formation', 'bibliothèque']
+      transport: ['taxi', 'transport', 'bus', 'aéroport', 'port', 'déplacement', 'trajet', 'voyage'],
+      tourism: ['tourisme', 'visite', 'plage', 'musée', 'monument', 'site', 'loos', 'bel air', 'excursion'],
+      gastronomy: ['restaurant', 'manger', 'cuisine', 'plat', 'boisson', 'marché', 'aliment', 'bar'],
+      shopping: ['magasin', 'marché', 'achat', 'shopping', 'artisanat', 'souvenir', 'boutique'],
+      health: ['hôpital', 'médecin', 'pharmacie', 'santé', 'urgence', 'vaccin', 'clinique'],
+      safety: ['sécurité', 'danger', 'police', 'urgence', 'sûr', 'risque', 'manifestation'],
+      culture: ['culture', 'langue', 'religion', 'musique', 'tradition', 'festival', 'coutume'],
+      economy: ['argent', 'banque', 'prix', 'coût', 'monnaie', 'change', 'investissement', 'entreprise'],
+      education: ['école', 'université', 'études', 'formation', 'bibliothèque', 'cours'],
+      housing: ['logement', 'appartement', 'villa', 'colocation', 'quartier', 'loyer'],
+      administration: ['visa', 'résidence', 'passeport', 'démarche', 'document', 'ambassade', 'rccm'],
+      weather: ['météo', 'pluie', 'saison', 'chaleur', 'climat', 'humidité']
     },
     en: {
-      transport: ['taxi', 'transport', 'bus', 'airport', 'port', 'travel', 'journey'],
-      tourisme: ['tourism', 'visit', 'beach', 'museum', 'monument', 'site', 'loos', 'bel air'],
-      gastronomie: ['restaurant', 'eat', 'food', 'dish', 'drink', 'market', 'meal'],
-      shopping: ['shop', 'market', 'buy', 'shopping', 'craft', 'souvenir'],
-      sante: ['hospital', 'doctor', 'pharmacy', 'health', 'emergency', 'sick'],
-      securite: ['security', 'danger', 'police', 'emergency', 'safe', 'risk'],
-      culture: ['culture', 'language', 'religion', 'music', 'tradition', 'festival'],
-      economie: ['money', 'bank', 'price', 'cost', 'currency', 'exchange'],
-      education: ['school', 'university', 'study', 'training', 'library']
+      transport: ['taxi', 'transport', 'bus', 'airport', 'port', 'ride', 'journey', 'traffic'],
+      tourism: ['tourism', 'visit', 'beach', 'museum', 'monument', 'site', 'loos', 'trip'],
+      gastronomy: ['restaurant', 'eat', 'food', 'dish', 'drink', 'market', 'bar', 'meal'],
+      shopping: ['shop', 'market', 'buy', 'shopping', 'craft', 'souvenir', 'mall'],
+      health: ['hospital', 'doctor', 'clinic', 'pharmacy', 'health', 'emergency', 'vaccine'],
+      safety: ['safety', 'security', 'danger', 'police', 'emergency', 'protest', 'risk'],
+      culture: ['culture', 'language', 'religion', 'music', 'tradition', 'festival', 'custom'],
+      economy: ['money', 'bank', 'price', 'cost', 'currency', 'exchange', 'business', 'investment'],
+      education: ['school', 'university', 'study', 'training', 'library', 'course'],
+      housing: ['housing', 'apartment', 'villa', 'rent', 'neighborhood', 'lease'],
+      administration: ['visa', 'residence', 'passport', 'paperwork', 'document', 'embassy', 'registration'],
+      weather: ['weather', 'rain', 'season', 'heat', 'humidity', 'forecast', 'climate']
     }
   };
 
@@ -305,11 +367,14 @@ export function AIAssistantProvider({ children }) {
     
     // Réponse de fallback
     const fallbacks = knowledgeBase[lang]?.fallbacks || knowledgeBase.fr.fallbacks;
+    const defaultCategoryName =
+      knowledgeBase[lang]?.categories?.general?.name ||
+      knowledgeBase.fr.categories.general.name;
     const fallbackResponse = fallbacks[Math.floor(Math.random() * fallbacks.length)];
     
     return {
       text: fallbackResponse,
-      category: 'Général',
+      category: defaultCategoryName,
       language: lang
     };
   };
@@ -425,18 +490,20 @@ export function AIAssistantProvider({ children }) {
   // Suggestions rapides
   const quickSuggestions = {
     fr: [
-      "Où manger à Conakry ?",
-      "Comment se déplacer ?",
-      "Quels sont les sites à visiter ?",
-      "Où faire du shopping ?",
-      "Informations sur la sécurité"
+      "Quels quartiers pour se loger ?",
+      "Comment obtenir un visa de séjour ?",
+      "Où manger du bon poisson ?",
+      "Quelles plages recommandes-tu ?",
+      "Comment se déplacer depuis l'aéroport ?",
+      "Quels numéros appeler en cas d'urgence ?"
     ],
     en: [
-      "Where to eat in Conakry?",
-      "How to get around?",
-      "What sites to visit?",
-      "Where to shop?",
-      "Security information"
+      "Best neighborhoods to live in?",
+      "How to get a residence visa?",
+      "Where to eat fresh seafood?",
+      "Which beaches should I visit?",
+      "How to go from airport to downtown?",
+      "Emergency numbers in Conakry?"
     ]
   };
 
@@ -505,7 +572,33 @@ function AIAssistantWidget() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={openAssistant}
-          className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-red-600 to-yellow-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all z-50 flex items-center justify-center"
+          style={{
+            position: 'fixed',
+            bottom: '1.5rem',
+            right: '1.5rem',
+            width: '4rem',
+            height: '4rem',
+            background: 'linear-gradient(180deg, #CE1126 0%, #CE1126 33.33%, #FCD116 33.33%, #FCD116 66.66%, #009639 66.66%, #009639 100%)',
+            color: 'white',
+            borderRadius: '50%',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            transition: 'all 0.3s',
+            zIndex: 50,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '2px solid white',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          className="flex items-center justify-center"
         >
           <Bot className="h-8 w-8" />
         </motion.button>

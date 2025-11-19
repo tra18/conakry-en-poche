@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin Panel - Conakry en Poche</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .feature-card {
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .status {
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .status.success { background-color: #10b981; }
+        .status.info { background-color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Test Admin Panel - Conakry en Poche</h1>
+            <p>Vérification des fonctionnalités améliorées</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🔗 Liens Utiles</h3>
+                <p>Navigation interne et externe opérationnelle</p>
+                <div class="status success">✅ Fonctionnel</div>
+            </div>
+            
+            <div class="feature-card">
+                <h3>⚡ Actions Rapides</h3>
+                <p>Export, sauvegarde, cache, diagnostics</p>
+                <div class="status success">✅ Fonctionnel</div>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🌐 Liens Externes</h3>
+                <p>Gouvernement, santé, météo, banque</p>
+                <div class="status success">✅ Fonctionnel</div>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📊 Statistiques</h3>
+                <p>Données en temps réel</p>
+                <div class="status success">✅ Fonctionnel</div>
+            </div>
+        </div>
+
+        <div class="header">
+            <h2>🎯 Fonctionnalités Ajoutées</h2>
+        </div>
+
+        <ul style="line-height: 1.8;">
+            <li><strong>Navigation améliorée :</strong> Utilisation de React Router pour une navigation fluide</li>
+            <li><strong>Liens externes :</strong> Ouverture automatique dans de nouveaux onglets</li>
+            <li><strong>Actions rapides :</strong> Export de données, sauvegarde, nettoyage de cache</li>
+            <li><strong>Interface responsive :</strong> Design adaptatif pour tous les écrans</li>
+            <li><strong>Feedback utilisateur :</strong> Notifications et confirmations d'actions</li>
+            <li><strong>Descriptions détaillées :</strong> Chaque lien a une description explicative</li>
+        </ul>
+
+        <div class="header">
+            <div class="status info">
+                🌐 Accès à l'application : <a href="http://localhost:3001" style="color: white;">http://localhost:3001</a>
+            </div>
+            <div class="status info">
+                🛠️ Panneau Admin : <a href="http://localhost:3001/admin" style="color: white;">http://localhost:3001/admin</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

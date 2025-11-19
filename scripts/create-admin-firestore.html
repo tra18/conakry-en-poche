@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création Compte Admin - Conakry en Poche</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        .message.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+        
+        .steps {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .steps h2 {
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .steps ol {
+            margin-left: 1.5rem;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code {
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Créer un Compte Admin</h1>
+        <p class="subtitle">Créez un compte administrateur pour Conakry en Poche</p>
+        
+        <form id="adminForm">
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="admin@conakryenpoche.com" 
+                    required
+                />
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Mot de passe *</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Minimum 6 caractères" 
+                    minlength="6"
+                    required
+                />
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Nom complet *</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Administrateur" 
+                    required
+                />
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Téléphone (optionnel)</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="+224 XXX XXX XXX"
+                />
+            </div>
+            
+            <button type="submit" id="submitBtn">
+                Créer le compte admin
+            </button>
+        </form>
+        
+        <div id="message"></div>
+        
+        <div class="steps">
+            <h2>📝 Instructions</h2>
+            <ol>
+                <li>Remplissez le formulaire ci-dessus</li>
+                <li>Cliquez sur "Créer le compte admin"</li>
+                <li>Une fois le compte créé, connectez-vous avec ces identifiants</li>
+                <li>Allez dans la <a href="https://console.firebase.google.com/project/ckry-f7bd7/firestore/data/~2Fusers" target="_blank">Console Firebase</a></li>
+                <li>Trouvez votre document utilisateur (par email)</li>
+                <li>Modifiez le champ <span class="code">role</span> de <span class="code">user</span> à <span class="code">admin</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Configuration Firebase - Remplacez par vos vraies clés
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkK8xXvYqXvYqXvYqXvYqXvYqXvYqX",
+            authDomain: "ckry-f7bd7.firebaseapp.com",
+            projectId: "ckry-f7bd7",
+            storageBucket: "ckry-f7bd7.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abc123"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const form = document.getElementById('adminForm');
+        const messageDiv = document.getElementById('message');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Création en cours...';
+            messageDiv.innerHTML = '';
+
+            try {
+                // Créer l'utilisateur dans Firebase Auth
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Créer le profil dans Firestore avec le rôle admin
+                await setDoc(doc(db, 'users', user.uid), {
+                    uid: user.uid,
+                    email: email,
+                    name: name,
+                    phone: phone || '',
+                    role: 'admin', // Rôle admin directement
+                    createdAt: new Date(),
+                    isActive: true
+                });
+
+                messageDiv.innerHTML = `
+                    <div class="message success">
+                        <strong>✅ Compte créé avec succès!</strong><br>
+                        Email: ${email}<br>
+                        UID: ${user.uid}<br><br>
+                        <strong>Prochaine étape:</strong><br>
+                        Allez dans la <a href="https://console.firebase.google.com/project/ckry-f7bd7/firestore/data/~2Fusers~2F${user.uid}" target="_blank">Console Firebase</a> pour vérifier que le rôle est bien "admin".
+                    </div>
+                `;
+
+                form.reset();
+            } catch (error) {
+                let errorMessage = 'Erreur lors de la création du compte.';
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'Cet email est déjà utilisé. Utilisez un autre email.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Le mot de passe est trop faible. Utilisez au moins 6 caractères.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'L\'email n\'est pas valide.';
+                } else {
+                    errorMessage = error.message;
+                }
+
+                messageDiv.innerHTML = `
+                    <div class="message error">
+                        <strong>❌ Erreur:</strong><br>
+                        ${errorMessage}
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Créer le compte admin';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

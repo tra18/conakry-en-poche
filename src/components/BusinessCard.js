@@ -1,331 +1,514 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import GPSNavigation from './GPSNavigation';
+import BusinessHours from './BusinessHours';
+import BusinessReviews from './BusinessReviews';
+import BookingSystem from './BookingSystem';
+import EnhancedShareButton from './EnhancedShareButton';
+import { useFavorites } from '../contexts/FavoritesContext';
+import { useReview } from '../contexts/ReviewContext';
+import { Heart, Star, List, Plus, Calendar } from 'lucide-react';
+import CustomListsManager from './CustomListsManager';
 
-const BusinessCard = ({ business }) => {
+const BusinessCard = ({ business, showAdminActions = false, onApprove, onReject }) => {
+  const [showGPS, setShowGPS] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
+  const [showListsManager, setShowListsManager] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
+  const { isFavorite, addToFavorites, removeFromFavorites, lists, addBusinessToList } = useFavorites();
+  const { getAverageRating, getReviewCount, loadReviews } = useReview();
+  const [averageRating, setAverageRating] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+  const isInFavorites = isFavorite(business.id);
+
+  useEffect(() => {
+    if (business.id) {
+      loadReviews(business.id).then(() => {
+        setAverageRating(getAverageRating(business.id));
+        setReviewCount(getReviewCount(business.id));
+      });
+    }
+  }, [business.id]);
+
   const getCategoryIcon = (category) => {
     const icons = {
-      'hotels': '🏨',
-      'restaurants': '🍽️',
-      'loisirs': '🎭',
-      'administrations': '🏛️',
-      'hopitaux': '🏥',
-      'pharmacies': '💊',
-      'entreprises': '🏢',
-      'aires-jeux': '🎠',
-      'ecoles': '🎓',
-      'universites': '🏫'
+      restaurants: '🍽️',
+      hotels: '🏨',
+      pharmacies: '💊',
+      hopitaux: '🏥',
+      ecoles: '🏫',
+      administrations: '🏛️',
+      banques: '🏦',
+      loisirs: '🎯',
+      transport: '🚌',
+      shopping: '🛍️',
+      default: '📍'
     };
-    return icons[category] || '🏢';
+    return icons[category] || icons.default;
   };
 
-  const getOpeningStatus = (workingHours) => {
-    if (!workingHours) return { status: 'unknown', text: 'Horaires non renseignés', color: '#6b7280' };
-    
-    const now = new Date();
-    const currentDay = now.toLocaleDateString('fr-FR', { weekday: 'long' }).toLowerCase();
-    const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
-    
-    const todayHours = workingHours[currentDay];
-    if (!todayHours || todayHours.closed) {
-      return { status: 'closed', text: 'Fermé', color: '#ef4444' };
-    }
-    
-    const openTime = todayHours.open;
-    const closeTime = todayHours.close;
-    
-    if (!openTime || !closeTime) {
-      return { status: 'unknown', text: 'Horaires non renseignés', color: '#6b7280' };
-    }
-    
-    // Convertir les heures en minutes pour faciliter la comparaison
-    const timeToMinutes = (time) => {
-      const [hours, minutes] = time.split(':').map(Number);
-      return hours * 60 + minutes;
+  const getCategoryColor = (category) => {
+    const colors = {
+      restaurants: '#ef4444',
+      hotels: '#3b82f6',
+      pharmacies: '#10b981',
+      hopitaux: '#f59e0b',
+      ecoles: '#8b5cf6',
+      administrations: '#6366f1',
+      banques: '#059669',
+      loisirs: '#ec4899',
+      transport: '#f97316',
+      shopping: '#84cc16',
+      default: '#6b7280'
     };
-    
-    const currentMinutes = timeToMinutes(currentTime);
-    const openMinutes = timeToMinutes(openTime);
-    const closeMinutes = timeToMinutes(closeTime);
-    
-    // Vérifier si on est dans les 30 minutes avant la fermeture
-    const thirtyMinutesBeforeClose = closeMinutes - 30;
-    
-    if (currentMinutes >= openMinutes && currentMinutes < closeMinutes) {
-      if (currentMinutes >= thirtyMinutesBeforeClose) {
-        return { status: 'closing-soon', text: 'Ferme bientôt', color: '#f59e0b' };
-      }
-      return { status: 'open', text: 'Ouvert', color: '#10b981' };
-    }
-    
-    return { status: 'closed', text: 'Fermé', color: '#ef4444' };
+    return colors[category] || colors.default;
   };
 
-  const getCategoryName = (category) => {
-    const names = {
-      'hotels': 'Hôtels',
-      'restaurants': 'Restaurants',
-      'loisirs': 'Loisirs',
-      'administrations': 'Administrations',
-      'hopitaux': 'Hôpitaux',
-      'pharmacies': 'Pharmacies',
-      'entreprises': 'Entreprises',
-      'aires-jeux': 'Aires de Jeux',
-      'ecoles': 'Écoles',
-      'universites': 'Universités'
-    };
-    return names[category] || 'Entreprise';
+  const formatDistance = (distance) => {
+    if (distance < 1) {
+      return `${Math.round(distance * 1000)} m`;
+    }
+    return `${distance.toFixed(1)} km`;
   };
 
   return (
-    <div style={{
-      backgroundColor: 'white',
-      borderRadius: '0.75rem',
-      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-      padding: '1.5rem',
-      border: '1px solid #e5e7eb',
-      transition: 'box-shadow 0.3s, transform 0.3s',
-      cursor: 'pointer'
-    }}
-    onMouseEnter={(e) => {
-      e.target.style.boxShadow = '0 8px 15px rgba(0,0,0,0.15)';
-      e.target.style.transform = 'translateY(-2px)';
-    }}
-    onMouseLeave={(e) => {
-      e.target.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-      e.target.style.transform = 'translateY(0)';
-    }}
-    >
-      {/* Header avec icône et nom */}
+    <>
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '1rem'
+        backgroundColor: 'white',
+        borderRadius: '1rem',
+        padding: '1.5rem',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        border: `2px solid ${getCategoryColor(business.category)}20`,
+        transition: 'all 0.3s ease',
+        position: 'relative'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(0, 0, 0, 0.1)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
       }}>
+        {/* Header avec icône et nom */}
         <div style={{
-          width: '3rem',
-          height: '3rem',
-          backgroundColor: '#f3f4f6',
-          borderRadius: '0.5rem',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          marginRight: '1rem',
-          fontSize: '1.5rem'
-        }}>
-          {getCategoryIcon(business.category)}
-        </div>
-        <div>
-          <h3 style={{
-            fontSize: '1.125rem',
-            fontWeight: '600',
-            color: '#1f2937',
-            margin: 0,
-            marginBottom: '0.25rem'
-          }}>
-            {business.name}
-          </h3>
-          <span style={{
-            fontSize: '0.75rem',
-            color: '#6b7280',
-            backgroundColor: '#f3f4f6',
-            padding: '0.25rem 0.5rem',
-            borderRadius: '0.25rem'
-          }}>
-            {getCategoryName(business.category)}
-          </span>
-        </div>
-      </div>
-
-      {/* Description */}
-      {business.description && (
-        <p style={{
-          color: '#4b5563',
-          fontSize: '0.875rem',
-          lineHeight: '1.4',
+          gap: '1rem',
           marginBottom: '1rem'
         }}>
-          {business.description}
-        </p>
-      )}
-
-      {/* Statut d'ouverture */}
-      {business.workingHours && (
-        <div style={{
-          marginBottom: '1rem',
-          padding: '0.75rem',
-          backgroundColor: '#f9fafb',
-          borderRadius: '0.5rem',
-          border: '1px solid #e5e7eb'
-        }}>
-          {(() => {
-            const status = getOpeningStatus(business.workingHours);
-            return (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '0.5rem'
+          <div style={{
+            fontSize: '2rem',
+            backgroundColor: `${getCategoryColor(business.category)}20`,
+            padding: '0.75rem',
+            borderRadius: '0.75rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            {getCategoryIcon(business.category)}
+          </div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{
+              margin: '0 0 0.25rem 0',
+              fontSize: '1.25rem',
+              fontWeight: 'bold',
+              color: '#374151'
+            }}>
+              {business.name}
+            </h3>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              flexWrap: 'wrap'
+            }}>
+              <p style={{
+                margin: 0,
+                fontSize: '0.875rem',
+                color: '#6b7280',
+                textTransform: 'capitalize'
               }}>
+                {business.category}
+              </p>
+              {averageRating > 0 && (
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem'
+                  gap: '0.25rem',
+                  fontSize: '0.875rem'
                 }}>
-                  <div style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: status.color
-                  }}></div>
-                  <span style={{
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    color: status.color
-                  }}>
-                    {status.text}
+                  <Star size={14} color="#fbbf24" fill="#fbbf24" />
+                  <span style={{ color: '#374151', fontWeight: '600' }}>
+                    {averageRating.toFixed(1)}
                   </span>
+                  {reviewCount > 0 && (
+                    <span style={{ color: '#6b7280', fontSize: '0.75rem' }}>
+                      ({reviewCount})
+                    </span>
+                  )}
                 </div>
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: '#6b7280'
-                }}>
-                  {new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </div>
-            );
-          })()}
-          
-          {/* Horaires d'aujourd'hui */}
-          {(() => {
-            const now = new Date();
-            const currentDay = now.toLocaleDateString('fr-FR', { weekday: 'long' }).toLowerCase();
-            const todayHours = business.workingHours[currentDay];
-            
-            if (todayHours) {
-              if (todayHours.closed) {
-                return (
-                  <div style={{
-                    fontSize: '0.75rem',
-                    color: '#6b7280',
-                    textAlign: 'center'
-                  }}>
-                    Aujourd'hui: Fermé
-                  </div>
-                );
-              } else if (todayHours.open && todayHours.close) {
-                return (
-                  <div style={{
-                    fontSize: '0.75rem',
-                    color: '#6b7280',
-                    textAlign: 'center'
-                  }}>
-                    Aujourd'hui: {todayHours.open} - {todayHours.close}
-                  </div>
-                );
+              )}
+            </div>
+          </div>
+          {/* Bouton favoris */}
+          <button
+            onClick={() => {
+              if (isInFavorites) {
+                removeFromFavorites(business.id);
+              } else {
+                addToFavorites(business);
               }
-            }
-            
-            // Si pas d'horaires pour aujourd'hui, afficher les horaires de la semaine
-            return (
-              <div style={{
-                fontSize: '0.75rem',
-                color: '#6b7280',
-                textAlign: 'center'
-              }}>
-                Horaires non renseignés
-              </div>
-            );
-          })()}
+            }}
+            style={{
+              padding: '0.5rem',
+              backgroundColor: isInFavorites ? '#ef4444' : 'transparent',
+              border: `2px solid ${isInFavorites ? '#ef4444' : '#e5e7eb'}`,
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              color: isInFavorites ? 'white' : '#6b7280',
+              transition: 'all 0.2s'
+            }}
+            title={isInFavorites ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+          >
+            <Heart size={20} fill={isInFavorites ? 'white' : 'none'} />
+          </button>
+          {/* Bouton listes */}
+          <button
+            onClick={() => setShowListsManager(true)}
+            style={{
+              padding: '0.5rem',
+              backgroundColor: 'transparent',
+              border: '2px solid #3b82f6',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              color: '#3b82f6',
+              transition: 'all 0.2s'
+            }}
+            title="Ajouter à une liste"
+          >
+            <List size={20} />
+          </button>
+          {business.coordinates && (
+            <button
+              onClick={() => setShowGPS(true)}
+              style={{
+                backgroundColor: '#059669',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#047857';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#059669';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              🗺️ GPS
+            </button>
+          )}
+        </div>
+
+        {/* Informations de contact */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '1rem',
+          marginBottom: '1rem'
+        }}>
+          <div>
+            <p style={{
+              margin: '0 0 0.25rem 0',
+              fontSize: '0.875rem',
+              color: '#6b7280',
+              fontWeight: '600'
+            }}>
+              📍 Adresse
+            </p>
+            <p style={{
+              margin: 0,
+              fontSize: '0.875rem',
+              color: '#374151'
+            }}>
+              {business.address}
+            </p>
+          </div>
           
-          {/* Horaires de la semaine */}
+          <div>
+            <p style={{
+              margin: '0 0 0.25rem 0',
+              fontSize: '0.875rem',
+              color: '#6b7280',
+              fontWeight: '600'
+            }}>
+              📞 Téléphone
+            </p>
+            <p style={{
+              margin: 0,
+              fontSize: '0.875rem',
+              color: '#374151'
+            }}>
+              {business.phone}
+            </p>
+          </div>
+
+          {business.email && (
+            <div>
+              <p style={{
+                margin: '0 0 0.25rem 0',
+                fontSize: '0.875rem',
+                color: '#6b7280',
+                fontWeight: '600'
+              }}>
+                📧 Email
+              </p>
+              <p style={{
+                margin: 0,
+                fontSize: '0.875rem',
+                color: '#374151'
+              }}>
+                {business.email}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Horaires */}
+        {business.schedule && (
+          <BusinessHours hours={{ schedule: business.schedule }} />
+        )}
+
+        {/* Description */}
+        {business.description && (
+          <div style={{ marginBottom: '1rem' }}>
+            <p style={{
+              margin: '0 0 0.25rem 0',
+              fontSize: '0.875rem',
+              color: '#6b7280',
+              fontWeight: '600'
+            }}>
+              📝 Description
+            </p>
+            <p style={{
+              margin: 0,
+              fontSize: '0.875rem',
+              color: '#374151',
+              lineHeight: '1.5'
+            }}>
+              {business.description}
+            </p>
+          </div>
+        )}
+
+        {/* Informations GPS */}
+        {business.coordinates && (
           <div style={{
-            marginTop: '0.75rem',
-            paddingTop: '0.75rem',
+            backgroundColor: '#f0fdf4',
+            border: '1px solid #bbf7d0',
+            borderRadius: '0.5rem',
+            padding: '0.75rem',
+            marginBottom: '1rem'
+          }}>
+            <p style={{
+              margin: '0 0 0.25rem 0',
+              fontSize: '0.75rem',
+              color: '#059669',
+              fontWeight: '600'
+            }}>
+              📍 Coordonnées GPS disponibles
+            </p>
+            <p style={{
+              margin: 0,
+              fontSize: '0.75rem',
+              color: '#047857'
+            }}>
+              Précision: {business.coordinates.precision === 'high' ? 'Élevée' : 'Moyenne'}
+            </p>
+          </div>
+        )}
+
+        {/* Boutons d'action */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: '0.75rem',
+          paddingTop: '1rem',
+          borderTop: '1px solid #e5e7eb',
+          marginTop: '1rem'
+        }}>
+          <button
+            onClick={() => setShowReviews(!showReviews)}
+            style={{
+              padding: '0.75rem',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              transition: 'background-color 0.2s'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#2563eb';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = '#3b82f6';
+            }}
+          >
+            <Star size={18} />
+            {showReviews ? 'Masquer' : 'Avis'}
+          </button>
+          {(business.category === 'restaurants' || business.category === 'hotels') && (
+            <button
+              onClick={() => setShowBooking(!showBooking)}
+              style={{
+                padding: '0.75rem',
+                backgroundColor: '#10b981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#059669';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#10b981';
+              }}
+            >
+              <Calendar size={18} />
+              {showBooking ? 'Annuler' : 'Réserver'}
+            </button>
+          )}
+          <EnhancedShareButton
+            variant="default"
+            title={business.name}
+            text={`${business.name} - ${business.address}`}
+            url={`${window.location.origin}/business/${business.id}`}
+          />
+        </div>
+
+        {/* Avis */}
+        {showReviews && (
+          <BusinessReviews
+            businessId={business.id}
+            businessName={business.name}
+          />
+        )}
+
+        {/* Système de réservation */}
+        {showBooking && (
+          <div style={{ marginTop: '1rem' }}>
+            <BookingSystem
+              business={business}
+            />
+          </div>
+        )}
+
+        {/* Actions administrateur */}
+        {showAdminActions && (
+          <div style={{
+            display: 'flex',
+            gap: '0.75rem',
+            paddingTop: '1rem',
             borderTop: '1px solid #e5e7eb'
           }}>
-            <div style={{
-              fontSize: '0.75rem',
-              color: '#6b7280',
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Horaires de la semaine:
-            </div>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '0.25rem',
-              fontSize: '0.7rem',
-              color: '#6b7280'
-            }}>
-              {Object.entries(business.workingHours).map(([day, hours]) => {
-                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
-                const isToday = new Date().toLocaleDateString('fr-FR', { weekday: 'long' }).toLowerCase() === day;
-                
-                return (
-                  <div key={day} style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    fontWeight: isToday ? '600' : '400',
-                    color: isToday ? '#374151' : '#6b7280'
-                  }}>
-                    <span>{dayName}:</span>
-                    <span>
-                      {hours.closed ? 'Fermé' : (hours.open && hours.close ? `${hours.open}-${hours.close}` : '--')}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            <button
+              onClick={() => onApprove(business.id)}
+              style={{
+                flex: 1,
+                backgroundColor: '#10b981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#059669';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#10b981';
+              }}
+            >
+              ✅ Approuver
+            </button>
+            <button
+              onClick={() => onReject(business.id)}
+              style={{
+                flex: 1,
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#dc2626';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#ef4444';
+              }}
+            >
+              ❌ Rejeter
+            </button>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Informations de contact */}
-      <div style={{
-        borderTop: '1px solid #e5e7eb',
-        paddingTop: '1rem'
-      }}>
-        {business.address && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '0.5rem',
-            fontSize: '0.875rem',
-            color: '#6b7280'
-          }}>
-            <span style={{ marginRight: '0.5rem' }}>📍</span>
-            <span>{business.address}</span>
-          </div>
-        )}
-        
-        {business.phone && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '0.5rem',
-            fontSize: '0.875rem',
-            color: '#6b7280'
-          }}>
-            <span style={{ marginRight: '0.5rem' }}>📞</span>
-            <span>{business.phone}</span>
-          </div>
-        )}
-        
-        {business.email && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: '0.875rem',
-            color: '#6b7280'
-          }}>
-            <span style={{ marginRight: '0.5rem' }}>📧</span>
-            <span>{business.email}</span>
-          </div>
-        )}
       </div>
 
-    </div>
+      {/* Modal GPS Navigation */}
+      {showGPS && (
+        <GPSNavigation
+          business={business}
+          onClose={() => setShowGPS(false)}
+        />
+      )}
+
+      {/* Modal Listes personnalisées */}
+      {showListsManager && (
+        <CustomListsManager
+          onClose={() => setShowListsManager(false)}
+          businessToAdd={business}
+          onAddToList={(listId) => {
+            setShowListsManager(false);
+          }}
+        />
+      )}
+    </>
   );
 };
 

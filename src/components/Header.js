@@ -70,7 +70,17 @@ const Header = () => {
 
         {/* Menu mobile */}
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          onTouchStart={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          type="button"
           style={{
             display: 'none',
             padding: '0.5rem',
@@ -78,7 +88,13 @@ const Header = () => {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            fontSize: '1.5rem'
+            fontSize: '1.5rem',
+            WebkitTapHighlightColor: 'transparent',
+            touchAction: 'manipulation',
+            WebkitTouchCallout: 'none',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            pointerEvents: 'auto'
           }}
         >
           ☰
@@ -102,36 +118,96 @@ const Header = () => {
         }}>
           <Link 
             to="/" 
-            style={{ color: '#6b7280', textDecoration: 'none', padding: '0.5rem 0' }}
+            style={{ 
+              color: '#6b7280', 
+              textDecoration: 'none', 
+              padding: '0.5rem 0',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              WebkitTouchCallout: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'pointer',
+              pointerEvents: 'auto'
+            }}
             onClick={() => setIsMenuOpen(false)}
+            onTouchStart={() => setIsMenuOpen(false)}
           >
             Accueil
           </Link>
           <Link 
             to="/traffic-map" 
-            style={{ color: '#6b7280', textDecoration: 'none', padding: '0.5rem 0' }}
+            style={{ 
+              color: '#6b7280', 
+              textDecoration: 'none', 
+              padding: '0.5rem 0',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              WebkitTouchCallout: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'pointer',
+              pointerEvents: 'auto'
+            }}
             onClick={() => setIsMenuOpen(false)}
+            onTouchStart={() => setIsMenuOpen(false)}
           >
             Carte Trafic
           </Link>
           <Link 
             to="/admin" 
-            style={{ color: '#6b7280', textDecoration: 'none', padding: '0.5rem 0' }}
+            style={{ 
+              color: '#6b7280', 
+              textDecoration: 'none', 
+              padding: '0.5rem 0',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              WebkitTouchCallout: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'pointer',
+              pointerEvents: 'auto'
+            }}
             onClick={() => setIsMenuOpen(false)}
+            onTouchStart={() => setIsMenuOpen(false)}
           >
             Administration
           </Link>
           <Link 
             to="/vivre-en-guinee" 
-            style={{ color: '#6b7280', textDecoration: 'none', padding: '0.5rem 0' }}
+            style={{ 
+              color: '#6b7280', 
+              textDecoration: 'none', 
+              padding: '0.5rem 0',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              WebkitTouchCallout: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'pointer',
+              pointerEvents: 'auto'
+            }}
             onClick={() => setIsMenuOpen(false)}
+            onTouchStart={() => setIsMenuOpen(false)}
           >
             Vivre en Guinée
           </Link>
           <Link 
             to="/contact" 
-            style={{ color: '#6b7280', textDecoration: 'none', padding: '0.5rem 0' }}
+            style={{ 
+              color: '#6b7280', 
+              textDecoration: 'none', 
+              padding: '0.5rem 0',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+              WebkitTouchCallout: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'pointer',
+              pointerEvents: 'auto'
+            }}
             onClick={() => setIsMenuOpen(false)}
+            onTouchStart={() => setIsMenuOpen(false)}
           >
             Contact
           </Link>

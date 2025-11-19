@@ -26,3 +26,16 @@ Le fichier `vercel.json` est déjà configuré pour :
 Votre site sera disponible à : `https://votre-projet.vercel.app`
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+

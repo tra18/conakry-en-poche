@@ -20,7 +20,6 @@ const BusinessRegistrationPage = () => {
     managerName: '',
     managerPhone: '',
     managerEmail: '',
-    managerIdNumber: '',
     
     // Horaires de travail
     workingHours: {
@@ -116,7 +115,6 @@ const BusinessRegistrationPage = () => {
         managerName: '',
         managerPhone: '',
         managerEmail: '',
-        managerIdNumber: '',
         workingHours: {
           monday: { open: '', close: '', closed: false },
           tuesday: { open: '', close: '', closed: false },
@@ -263,14 +261,22 @@ const BusinessRegistrationPage = () => {
                   }}
                 >
                   <option value="">Sélectionner une catégorie</option>
-                  <option value="hotels">🏨 Hôtels</option>
                   <option value="restaurants">🍽️ Restaurants</option>
-                  <option value="loisirs">🎭 Loisirs</option>
-                  <option value="administrations">🏛️ Administrations</option>
-                  <option value="hopitaux">🏥 Hôpitaux</option>
+                  <option value="hotels">🏨 Hôtels</option>
                   <option value="pharmacies">💊 Pharmacies</option>
-                  <option value="entreprises">🏢 Entreprises</option>
-                  <option value="aires-jeux">🎠 Aires de Jeux</option>
+                  <option value="hopitaux">🏥 Hôpitaux</option>
+                  <option value="banques">🏦 Banques</option>
+                  <option value="ecoles">🎓 Écoles</option>
+                  <option value="universites">🏛️ Universités</option>
+                  <option value="transport">🚌 Transport</option>
+                  <option value="shopping">🛍️ Shopping</option>
+                  <option value="loisirs">🎮 Loisirs</option>
+                  <option value="sport">⚽ Sport</option>
+                  <option value="beaute">💄 Beauté</option>
+                  <option value="automobile">🚗 Automobile</option>
+                  <option value="administration">🏛️ Administration</option>
+                  <option value="services">🔧 Services</option>
+                  <option value="autre">📋 Autre</option>
                 </select>
               </div>
 
@@ -497,30 +503,6 @@ const BusinessRegistrationPage = () => {
                 />
               </div>
 
-              <div>
-                <label style={{
-                  display: 'block',
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#374151',
-                  marginBottom: '0.5rem'
-                }}>
-                  Numéro de pièce d'identité
-                </label>
-                <input
-                  type="text"
-                  name="managerIdNumber"
-                  value={formData.managerIdNumber}
-                  onChange={handleInputChange}
-                  style={{
-                    width: '100%',
-                    padding: '0.75rem',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '0.375rem',
-                    fontSize: '0.875rem'
-                  }}
-                />
-              </div>
             </div>
           </div>
 

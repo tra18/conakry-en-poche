@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useBusiness } from '../contexts/BusinessContext';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Building, MapPin, Phone, Clock, Upload, CheckCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -9,17 +10,33 @@ import toast from 'react-hot-toast';
 const BusinessForm = () => {
   const { currentUser } = useAuth();
   const { submitBusiness, categories } = useBusiness();
+  const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]);
+
+  // Récupérer la catégorie depuis l'URL
+  const selectedCategoryFromURL = searchParams.get('category');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch
-  } = useForm();
+    watch,
+    setValue
+  } = useForm({
+    defaultValues: {
+      category: selectedCategoryFromURL || ''
+    }
+  });
+
+  // Pré-remplir la catégorie si elle est fournie dans l'URL
+  useEffect(() => {
+    if (selectedCategoryFromURL) {
+      setValue('category', selectedCategoryFromURL);
+    }
+  }, [selectedCategoryFromURL, setValue]);
 
   const onSubmit = async (data) => {
     if (!currentUser) {
@@ -41,7 +58,9 @@ const BusinessForm = () => {
       
       if (success) {
         setIsSubmitted(true);
-        reset();
+        reset({
+          category: selectedCategoryFromURL || ''
+        });
         setUploadedImages([]);
       }
     } catch (error) {
@@ -376,5 +395,7 @@ const BusinessForm = () => {
 };
 
 export default BusinessForm;
+
+
 
 

@@ -3,8 +3,13 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Règles pour les utilisateurs
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-      allow read: if request.auth != null && resource.data.role == 'admin';
+      // Permettre la création et la lecture de son propre document
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+      // Permettre aux admins de lire tous les utilisateurs
+      allow read: if request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
     
     // Règles pour les entreprises
@@ -43,14 +48,131 @@ service cloud.firestore {
     match /banners/{bannerId} {
       // Lecture publique pour les bannières actives
       allow read: if resource.data.isActive == true &&
-        resource.data.startDate <= timestamp.now() &&
-        resource.data.endDate >= timestamp.now();
+        resource.data.startDate <= request.time &&
+        resource.data.endDate >= request.time;
       
       // Lecture/écriture pour les admins
       allow read, write: if request.auth != null && 
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
+    
+    // Règles pour les notifications
+    match /notifications/{notificationId} {
+      // Lecture pour le propriétaire de la notification
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Création pour les utilisateurs authentifiés (notifications système)
+      allow create: if request.auth != null;
+      
+      // Mise à jour et suppression pour le propriétaire
+      allow update, delete: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+    }
+    
+    // Règles pour les réservations
+    match /bookings/{bookingId} {
+      // Lecture pour le propriétaire de la réservation
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Création pour les utilisateurs authentifiés
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+      
+      // Mise à jour et suppression pour le propriétaire
+      allow update, delete: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Lecture/écriture pour les admins
+      allow read, write: if request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Règles pour les événements
+    match /events/{eventId} {
+      // Lecture publique pour les événements publiés
+      allow read: if resource.data.isPublished == true;
+      
+      // Lecture/écriture pour les admins
+      allow read, write: if request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Règles pour les favoris d'événements
+    match /eventFavorites/{favoriteId} {
+      // Lecture et écriture pour le propriétaire
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Création pour les utilisateurs authentifiés
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Règles pour les abonnements push
+    match /pushSubscriptions/{subscriptionId} {
+      // Lecture et écriture pour le propriétaire
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // Création pour les utilisateurs authentifiés
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Règles pour les signalements routiers
+    match /roadReports/{reportId} {
+      // Lecture publique pour les signalements approuvés
+      allow read: if resource.data.status == 'approved';
+      
+      // Lecture pour l'utilisateur qui a créé le signalement (si connecté)
+      allow read: if request.auth != null && 
+        resource.data.userId != null &&
+        request.auth.uid == resource.data.userId;
+      
+      // Lecture pour les admins
+      allow read: if request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      
+      // Création pour tous (authentifiés ou non) - statut doit être 'pending'
+      // Pour utilisateurs anonymes : userId doit être null
+      // Pour utilisateurs authentifiés : userId doit correspondre à l'UID ou être null
+      allow create: if request.resource.data.status == 'pending' &&
+        request.resource.data.type is string &&
+        request.resource.data.title is string &&
+        request.resource.data.location is string &&
+        (
+          // Utilisateur anonyme : userId doit être null
+          (request.auth == null && request.resource.data.userId == null) ||
+          // Utilisateur authentifié : userId doit être null ou correspondre à l'UID
+          (request.auth != null && (request.resource.data.userId == null || request.resource.data.userId == request.auth.uid))
+        );
+      
+      // Mise à jour pour les admins uniquement (pour approuver/rejeter)
+      allow update: if request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Règles par défaut pour les autres collections (mode développement)
+    // En production, décommentez et restreignez selon vos besoins
+    match /{document=**} {
+      // Permettre la lecture/écriture pour les utilisateurs authentifiés en développement
+      // En production, supprimez cette règle et ajoutez des règles spécifiques
+      allow read, write: if request.auth != null;
+    }
   }
 }
+
+
+
+
+
+
+
 
 

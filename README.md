@@ -1,284 +1,201 @@
-# 🇬🇳 Conakry en Poche
+# 🏙️ Conakry en Poche
 
-**Votre guide complet pour découvrir Conakry : hôtels, restaurants, loisirs, administrations et plus encore.**
+Application web moderne pour découvrir les meilleures adresses de Conakry, Guinée. Explorez les restaurants, hôtels, pharmacies, hôpitaux et bien plus avec navigation GPS intégrée.
 
-![Conakry en Poche](https://img.shields.io/badge/Version-1.0.0-blue)
-![React](https://img.shields.io/badge/React-18.2.0-61dafb)
-![Firebase](https://img.shields.io/badge/Firebase-Hosting-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
+## 🚀 Fonctionnalités
 
-## 📱 Aperçu
-
-Conakry en Poche est une application web moderne et complète qui sert de guide pour la capitale guinéenne. Elle offre une expérience utilisateur intuitive avec des fonctionnalités avancées pour découvrir et explorer Conakry.
-
-## ✨ Fonctionnalités Principales
+### 📍 Navigation GPS Intelligente
+- **Coordonnées automatiques** pour chaque entreprise
+- **Navigation multi-applications** (Google Maps, Apple Maps, Waze)
+- **Géolocalisation en temps réel** avec calcul de distances
+- **Entreprises les plus proches** triées par proximité
 
 ### 🏢 Gestion des Entreprises
-- **Inscription d'entreprises** avec formulaire complet
-- **Validation administrative** des demandes
-- **Catégories multiples** : Hôtels, Restaurants, Loisirs, Administrations, Hôpitaux, Pharmacies, Entreprises, Aires de Jeux, Écoles, Universités
-- **Gestion des statuts** (Actif/Inactif)
-- **Horaires de travail** détaillés
-- **Informations du responsable**
+- **Catalogue complet** des entreprises de Conakry
+- **Catégories organisées** : restaurants, hôtels, pharmacies, hôpitaux, etc.
+- **Informations détaillées** : adresse, téléphone, email, description
+- **Système d'administration** pour valider les nouvelles entreprises
 
-### 🚦 Trafic en Temps Réel
-- **Surveillance du trafic** avec mise à jour automatique
-- **Carte interactive** avec géolocalisation GPS
-- **6 zones surveillées** : Centre-ville, Ratoma, Matam, Dixinn, Kaloum, Matoto
-- **Système d'incidents** avec détails précis
-- **Conseils de circulation** intelligents
+### 📰 Actualités
+- **Page d'actualités** avec design professionnel
+- **Articles organisés** par catégories
+- **Mode développement** avec données mockées
 
-### 🇬🇳 Guide "Vivre en Guinée"
-- **8 sections complètes** : Culture, Langues, Cuisine, Transport, Santé, Éducation, Économie, Tourisme
-- **Informations pratiques** et numéros utiles
-- **Conseils pour résidents** et visiteurs
-- **Navigation interactive** par onglets
+### 🎨 Interface Moderne
+- **Design responsive** adaptatif
+- **Assistant IA** avec logo professionnel
+- **Animations fluides** et transitions
+- **Thème cohérent** aux couleurs de la Guinée
 
-### 🤖 Assistant IA "Nimba"
-- **Support multilingue** français/anglais
-- **Base de connaissances** avec 10+ catégories
-- **Interface moderne** avec chat en temps réel
-- **Info-bulle automatique** (apparaît après 2s)
-- **Logo personnalisé** avec drapeau Guinée 🇬🇳
+## 🛠️ Technologies
 
-### 🛠️ Administration Complète
-- **Panneau d'administration** avec 4 onglets
-- **Gestion des entreprises** (validation, modification, suppression)
-- **Gestion des actualités** et taxis
-- **Interface intuitive** et professionnelle
+- **Frontend** : React 18, React Router
+- **Styling** : CSS-in-JS avec design moderne
+- **Géolocalisation** : API Navigator Geolocation
+- **Navigation** : Google Maps, Apple Maps, Waze
+- **État** : React Context API
+- **Notifications** : React Hot Toast
 
-## 🚀 Technologies Utilisées
-
-### Frontend
-- **React 18.2.0** - Framework JavaScript moderne
-- **React Router DOM** - Navigation côté client
-- **Tailwind CSS** - Framework CSS utilitaire
-- **Framer Motion** - Animations fluides
-- **Context API** - Gestion d'état globale
-
-### Backend & Services
-- **Firebase Hosting** - Hébergement web
-- **Firebase Firestore** - Base de données NoSQL
-- **Firebase Storage** - Stockage de fichiers
-- **Firebase Auth** - Authentification
-- **LocalStorage** - Persistance locale
-
-### Cartographie
-- **Leaflet** - Cartes interactives
-- **OpenStreetMap** - Tuiles cartographiques
-- **Géolocalisation GPS** - Position automatique
-
-## 📦 Installation
+## 📱 Installation et Développement
 
 ### Prérequis
-- Node.js (version 16 ou supérieure)
+- Node.js 16+ 
 - npm ou yarn
-- Compte Firebase
 
-### Étapes d'installation
-
-1. **Cloner le dépôt**
+### Installation
 ```bash
-git clone https://github.com/votre-username/conakry-en-poche.git
+# Cloner le projet
+git clone <repository-url>
 cd conakry-en-poche
-```
 
-2. **Installer les dépendances**
-```bash
+# Installer les dépendances
 npm install
-```
 
-3. **Configuration Firebase**
-```bash
-# Installer Firebase CLI
-npm install -g firebase-tools
-
-# Se connecter à Firebase
-firebase login
-
-# Initialiser Firebase (si pas déjà fait)
-firebase init
-```
-
-4. **Lancer en développement**
-```bash
+# Démarrer en développement
 npm start
 ```
 
-5. **Build de production**
+### Scripts Disponibles
 ```bash
-npm run build
+npm start          # Serveur de développement (port 3001)
+npm run build      # Build de production
+npm test           # Tests unitaires
+npm run deploy     # Déploiement automatique
 ```
 
-6. **Déploiement**
+## 🌐 Déploiement
+
+### Vercel (Recommandé)
 ```bash
-firebase deploy
-```
-
-## 🌐 URLs de Déploiement
-
-### Développement
-- **Local** : http://localhost:3000
-- **Réseau** : http://192.168.1.37:3000
-
-### Production
-- **Firebase Hosting** : https://conakry-en-poche.web.app
-- **Domaine personnalisé** : https://conakryenpoche.gn
-
-## 📁 Structure du Projet
-
-```
-conakry-en-poche/
-├── public/                 # Fichiers statiques
-│   ├── index.html
-│   ├── manifest.json
-│   └── ai-assistant-icon.svg
-├── src/
-│   ├── components/         # Composants React
-│   │   ├── Header.js
-│   │   ├── Footer.js
-│   │   ├── AIAssistant.js
-│   │   ├── BusinessCard.js
-│   │   └── Notification.js
-│   ├── pages/             # Pages de l'application
-│   │   ├── HomePage.js
-│   │   ├── AdminPanel.js
-│   │   ├── BusinessRegistrationPage.js
-│   │   ├── CategoryPage.js
-│   │   ├── TrafficPage.js
-│   │   ├── TrafficMapPage.js
-│   │   └── VivreEnGuineePage.js
-│   ├── contexts/          # Contextes React
-│   │   ├── NotificationContext.js
-│   │   └── BusinessContext.js
-│   ├── App.js             # Composant principal
-│   ├── index.js           # Point d'entrée
-│   └── index.css          # Styles globaux
-├── firebase.json          # Configuration Firebase
-├── firestore.rules        # Règles Firestore
-├── storage.rules          # Règles Storage
-├── tailwind.config.js     # Configuration Tailwind
-├── package.json           # Dépendances npm
-└── README.md              # Documentation
-```
-
-## 🎯 Fonctionnalités Détaillées
-
-### 🏢 Système d'Entreprises
-- **Inscription** : Formulaire complet avec validation
-- **Catégories** : 10 catégories d'activité
-- **Validation** : Processus d'approbation administratif
-- **Gestion** : Modification, activation/désactivation, suppression
-- **Affichage** : Cartes d'entreprise avec horaires et statut
-
-### 🚦 Système de Trafic
-- **Surveillance** : 6 zones géographiques
-- **Temps réel** : Mise à jour automatique toutes les 30s
-- **Carte interactive** : Géolocalisation GPS automatique
-- **Incidents** : Signalement et suivi des problèmes
-- **Conseils** : Recommandations de circulation
-
-### 🇬🇳 Guide Culturel
-- **Culture** : Traditions, fêtes, arts
-- **Langues** : Français, langues nationales
-- **Cuisine** : Plats traditionnels, restaurants
-- **Transport** : Urbain, interurbain, conseils
-- **Santé** : Système de santé, urgences
-- **Éducation** : Établissements, programmes
-- **Économie** : Secteurs, opportunités
-- **Tourisme** : Sites, activités, conseils
-
-### 🤖 Assistant IA
-- **Nimba** : Assistant virtuel personnalisé
-- **Multilingue** : Français et anglais
-- **Base de connaissances** : 10+ catégories
-- **Interface moderne** : Chat en temps réel
-- **Géolocalisation** : Réponses contextuelles
-
-## 🛠️ Administration
-
-### Accès Administrateur
-- **URL** : `/admin`
-- **Fonctionnalités** :
-  - Validation des entreprises
-  - Gestion des actualités
-  - Gestion des chauffeurs taxi
-  - Modification des entreprises validées
-
-### Onglets Disponibles
-1. **🏢 Entreprises** - Demandes en attente
-2. **✅ Entreprises Validées** - Gestion complète
-3. **📰 Actualités** - Validation des news
-4. **🚕 Taxis** - Gestion des chauffeurs
-
-## 📱 Responsive Design
-
-L'application est entièrement responsive et optimisée pour :
-- **Desktop** (1200px+)
-- **Tablet** (768px - 1199px)
-- **Mobile** (320px - 767px)
-
-## 🔒 Sécurité
-
-- **Règles Firestore** sécurisées
-- **Validation** des données côté client et serveur
-- **Authentification** Firebase
-- **Sanitisation** des entrées utilisateur
-- **Rate limiting** pour les API
-
-## 🚀 Déploiement
-
-### Firebase Hosting
-```bash
-# Build de production
-npm run build
+# Installation de Vercel CLI
+npm i -g vercel
 
 # Déploiement
-firebase deploy --only hosting
+vercel
+
+# Déploiement de production
+vercel --prod
 ```
+
+### Netlify
+```bash
+# Build local
+npm run build
+
+# Déploiement via drag & drop du dossier 'build'
+# Ou connecter le repository GitHub
+```
+
+### GitHub Pages
+```bash
+# Installation de gh-pages
+npm install --save-dev gh-pages
+
+# Ajouter au package.json
+"homepage": "https://username.github.io/conakry-en-poche",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+
+# Déploiement
+npm run deploy
+```
+
+## 🗺️ Fonctionnalités GPS
+
+### Génération Automatique de Coordonnées
+- Base de données des quartiers de Conakry
+- Précision élevée pour les adresses connues
+- Fallback vers le centre-ville pour les nouvelles adresses
+
+### Applications de Navigation Supportées
+- 🗺️ **Google Maps** - Navigation web et mobile
+- 🍎 **Apple Maps** - Navigation iOS native  
+- 🚗 **Waze** - Navigation communautaire
+- 🌐 **Navigation Web** - Lien universel
+
+### Géolocalisation Utilisateur
+- Position actuelle en temps réel
+- Calcul de distances automatique
+- Entreprises triées par proximité
+- Gestion des permissions et erreurs
+
+## 📊 Structure du Projet
+
+```
+src/
+├── components/          # Composants réutilisables
+│   ├── BusinessCard.js  # Carte d'entreprise avec GPS
+│   ├── GPSNavigation.js # Modal de navigation GPS
+│   └── ...
+├── contexts/           # Gestion d'état React
+│   ├── BusinessContext.js
+│   ├── NewsContext.js
+│   └── ...
+├── pages/             # Pages de l'application
+│   ├── AdminPanel.js  # Panneau d'administration
+│   ├── GPSDemo.js     # Démonstration GPS
+│   └── ...
+├── services/          # Services et utilitaires
+│   └── geolocationService.js
+└── App.js            # Composant principal
+```
+
+## 🔧 Configuration
 
 ### Variables d'Environnement
 ```env
-REACT_APP_FIREBASE_API_KEY=your_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_domain
-REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+# Optionnel : Clé API Google Maps
+REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key
+
+# Configuration Firebase (mode développement)
+REACT_APP_FIREBASE_API_KEY=demo-api-key
+REACT_APP_FIREBASE_AUTH_DOMAIN=conakry-en-poche-demo.firebaseapp.com
 ```
 
-## 🤝 Contribution
+### Mode Développement
+- Données mockées pour éviter les erreurs Firebase
+- ESLint désactivé pour éviter les problèmes de permissions
+- Port 3001 pour éviter les conflits
 
-Les contributions sont les bienvenues ! Pour contribuer :
+## 📱 URLs de Test
 
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
+### Développement Local
+- **Application** : http://localhost:3001
+- **Démo GPS** : http://localhost:3001/gps-demo
+- **Administration** : http://localhost:3001/admin
 
-## 📄 Licence
+### Pages Principales
+- **Accueil** : /
+- **Actualités** : /news
+- **Trafic** : /traffic
+- **Carte du trafic** : /traffic-map
+- **Vivre en Guinée** : /vivre-en-guinee
+- **Enregistrer entreprise** : /register-business
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+## 🎯 Fonctionnalités Testables
 
-## 👥 Équipe
+- ✅ Navigation GPS multi-applications
+- ✅ Géolocalisation utilisateur
+- ✅ Calcul de distances en temps réel
+- ✅ Entreprises les plus proches
+- ✅ Interface responsive
+- ✅ Gestion d'erreurs robuste
+- ✅ Export de données
+- ✅ Système d'administration
 
-- **Développeur Principal** : [Votre Nom]
-- **Design** : [Nom du Designer]
-- **Contenu** : [Nom du Rédacteur]
+## 📞 Support
 
-## 📞 Contact
+Pour toute question ou problème :
+- Vérifiez les permissions de géolocalisation
+- Testez sur la page `/gps-demo`
+- Consultez la console pour les erreurs détaillées
 
-- **Email** : contact@conakryenpoche.gn
-- **Téléphone** : +224 620 00 00 00
-- **Site Web** : https://conakryenpoche.gn
+## 🇬🇳 À Propos
 
-## 🙏 Remerciements
-
-- **Communauté React** pour l'excellent framework
-- **Firebase** pour les services backend
-- **OpenStreetMap** pour les données cartographiques
-- **Communauté Guinéenne** pour les retours et suggestions
+**Conakry en Poche** est une application web moderne dédiée à la découverte des meilleures adresses de Conakry, la capitale de la Guinée. Avec ses fonctionnalités GPS avancées et son interface intuitive, elle facilite la navigation et la découverte de la ville.
 
 ---
 
-**Fait avec ❤️ pour la Guinée** 🇬🇳
-
-*Conakry en Poche - Votre guide numérique de la capitale guinéenne*
+**Développé avec ❤️ pour Conakry**

@@ -1,0 +1,38 @@
+═══════════════════════════════════════════════════════════════
+COMMANDES À EXÉCUTER POUR INSTALLER LES DÉPENDANCES LEAFLET
+═══════════════════════════════════════════════════════════════
+
+Copiez et collez ces commandes dans votre terminal :
+
+───────────────────────────────────────────────────────────────
+OPTION 1 : Installation directe avec sudo (PLUS RAPIDE)
+───────────────────────────────────────────────────────────────
+
+cd /Users/bakywimbo/Desktop/conakryenpoche
+sudo npm install react-leaflet@4.2.1 leaflet@1.9.4 --legacy-peer-deps
+
+───────────────────────────────────────────────────────────────
+OPTION 2 : Corriger les permissions d'abord
+───────────────────────────────────────────────────────────────
+
+cd /Users/bakywimbo/Desktop/conakryenpoche
+sudo chown -R $(whoami) node_modules
+npm install react-leaflet@4.2.1 leaflet@1.9.4 --legacy-peer-deps
+
+───────────────────────────────────────────────────────────────
+OPTION 3 : Réinstallation complète
+───────────────────────────────────────────────────────────────
+
+cd /Users/bakywimbo/Desktop/conakryenpoche
+rm -rf node_modules package-lock.json
+npm install
+npm install react-leaflet@4.2.1 leaflet@1.9.4 --legacy-peer-deps
+
+───────────────────────────────────────────────────────────────
+APRÈS INSTALLATION : Redémarrer le serveur
+───────────────────────────────────────────────────────────────
+
+npm start
+
+═══════════════════════════════════════════════════════════════
+

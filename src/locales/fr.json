@@ -1,0 +1,240 @@
+{
+  "common": {
+    "appName": "Conakry en Poche",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "header": {
+    "home": "Accueil",
+    "businesses": "Entreprises",
+    "trafficMap": "Carte Trafic",
+    "events": "Événements",
+    "livingInGuinea": "Vivre en Guinée",
+    "report": "Signaler",
+    "register": "Inscrire",
+    "administration": "Administration"
+  },
+  "home": {
+    "title": "Découvrez Conakry En Poche",
+    "subtitle": "Votre guide de Conakry",
+    "searchPlaceholder": "Rechercher une entreprise, un service...",
+    "reportRoadIssue": "Signaler un problème routier",
+    "viewRoadReports": "Voir les signalements",
+    "registerBusiness": "Inscrire mon entreprise",
+    "statistics": {
+      "businesses": "Entreprises",
+      "users": "Utilisateurs",
+      "averageRating": "Note moyenne",
+      "categories": "Catégories"
+    },
+    "categories": {
+      "title": "Explorez par catégorie",
+      "viewAll": "Voir toutes les catégories"
+    },
+    "topBusinesses": {
+      "title": "Entreprises populaires",
+      "viewAll": "Voir toutes les entreprises"
+    },
+    "activities": {
+      "title": "Activités en cours",
+      "viewAll": "Voir toutes les activités"
+    },
+    "events": {
+      "title": "Événements à venir",
+      "viewAll": "Voir tous les événements"
+    }
+  },
+  "allCategories": {
+    "tagline": "Explorez Conakry",
+    "title": "Toutes les catégories",
+    "subtitle": "Découvrez toutes les catégories d'entreprises disponibles à Conakry",
+    "searchPlaceholder": "Rechercher une catégorie...",
+    "back": "Retour",
+    "register": "Inscrire mon entreprise",
+    "statisticsTitle": "{{count}} catégories",
+    "resultsFor": "Résultats pour \"{{term}}\"",
+    "allAvailable": "Toutes les catégories disponibles",
+    "viewGrid": "Grille",
+    "viewList": "Liste",
+    "explore": "Explorer",
+    "cta": "Voir toutes les catégories",
+    "noResultsTitle": "Aucune catégorie trouvée",
+    "noResultsDescription": "Essayez de modifier votre recherche ou explorez toutes les catégories",
+    "resetFilters": "Voir toutes les catégories",
+    "descriptions": {
+      "restaurants": "Découvrez des saveurs uniques et des restaurants authentiques.",
+      "hotels": "Trouvez les meilleurs hôtels et hébergements.",
+      "pharmacies": "Pharmacies et médicaments disponibles 24h/24.",
+      "hopitaux": "Centres de santé, hôpitaux et services médicaux.",
+      "banques": "Services bancaires et financiers modernes.",
+      "ecoles": "Établissements scolaires et éducatifs.",
+      "universites": "Enseignement supérieur et universités.",
+      "transport": "Services de transport public et privé.",
+      "shopping": "Boutiques, centres commerciaux et shopping.",
+      "loisirs": "Divertissement, loisirs et activités récréatives.",
+      "sport": "Activités sportives et centres de fitness.",
+      "beaute": "Salons de beauté et centres de bien-être.",
+      "automobile": "Services automobiles et garages.",
+      "administration": "Services administratifs et gouvernementaux.",
+      "services": "Services divers et professionnels.",
+      "autre": "Autres catégories et services variés.",
+      "default": "Explorez cette catégorie pour découvrir ce qui vous attend."
+    }
+  },
+  "categoryPage": {
+    "tagline": "Catégorie",
+    "backHome": "Retour à l'accueil",
+    "notFoundTitle": "Catégorie non trouvée",
+    "notFoundDescription": "Cette catégorie n'existe pas.",
+    "stats": {
+      "businesses": "Entreprises",
+      "topRated": "Bien notées"
+    },
+    "businessesTitle": "Entreprises ({{count}})",
+    "businessesSubtitle": "Découvrez les entreprises validées dans cette catégorie",
+    "noFilteredTitle": "Aucune entreprise trouvée",
+    "noFilteredDescription": "Essayez de modifier vos critères de recherche",
+    "emptyStateTitle": "Aucune entreprise dans cette catégorie",
+    "emptyStateDescription": "Il n'y a pas encore d'entreprises validées dans la catégorie {{category}}.",
+    "defaultDescription": "Découvrez les meilleures {{category}} de Conakry"
+  },
+  "bottomNav": {
+    "home": "Accueil",
+    "explore": "Explorer",
+    "report": "Signaler",
+    "search": "Rechercher"
+  },
+  "reportIssue": {
+    "title": "Signaler un problème routier",
+    "subtitle": "Aidez la communauté en signalant les travaux, accidents ou embouteillages",
+    "anonymous": "✅ Aucune connexion requise - Signalez librement !",
+    "successTitle": "Signalement soumis avec succès !",
+    "successDescription": "Votre signalement sera validé par l'administration avant d'être visible par tous.",
+    "form": {
+      "typeLabel": "Type de signalement *",
+      "titleLabel": "Titre du signalement *",
+      "titlePlaceholder": "Ex: Travaux sur la route de l'aéroport",
+      "descriptionLabel": "Description (optionnel)",
+      "descriptionPlaceholder": "Ajoutez des détails sur le problème...",
+      "userInfoNotice": "💡 Informations optionnelles (pour vous contacter si besoin)",
+      "userNameLabel": "Votre nom (optionnel)",
+      "userEmailLabel": "Votre email (optionnel)",
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "votre@email.com",
+      "locationLabel": "Localisation *",
+      "locationPlaceholder": "Ex: Avenue de la République, Conakry",
+      "locationHint": "Indiquez l'adresse, utilisez le GPS ou parlez pour indiquer votre position",
+      "photoLabel": "Photo (optionnel)",
+      "photoCTA": "Cliquez pour ajouter une photo",
+      "photoHelp": "PNG, JPG jusqu'à 5MB",
+      "gpsButton": "GPS",
+      "gpsLoading": "Chargement...",
+      "photoRemove": "Supprimer la photo",
+      "voiceStart": "Vocal",
+      "voiceStop": "Arrêter",
+      "voiceStartTooltip": "Parler pour remplir ce champ",
+      "voiceStopTooltip": "Arrêter l'enregistrement vocal"
+    },
+    "voice": {
+      "recording": "Enregistrement..."
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "submit": "Soumettre le signalement",
+      "submitting": "Envoi en cours..."
+    },
+    "errors": {
+      "selectType": "Veuillez sélectionner un type de signalement",
+      "titleRequired": "Veuillez saisir un titre",
+      "locationRequired": "Veuillez indiquer la localisation",
+      "permission": "Vérifiez que les règles Firestore permettent la création de signalements anonymes."
+    },
+    "toasts": {
+      "geoNotSupported": "La géolocalisation n'est pas supportée par votre navigateur",
+      "imageType": "Veuillez sélectionner une image",
+      "imageSize": "L'image est trop volumineuse (max 5MB)"
+    },
+    "status": {
+      "geoSuccess": "Position géolocalisée avec succès !",
+      "geoFailed": "Impossible d'obtenir votre position"
+    }
+  },
+  "roadReports": {
+    "title": "Signalements routiers",
+    "loading": "Chargement des signalements...",
+    "filterButton": "Filtrer",
+    "filters": {
+      "all": "Tous"
+    },
+    "countTotal": "{{count}} signalement{{plural}} au total",
+    "countFiltered": "{{count}} signalement{{plural}} de ce type",
+    "noReportsTitle": "Aucun signalement",
+    "noReportsDescription": "Aucun signalement validé pour le moment.",
+    "noReportsFiltered": "Aucun signalement de ce type pour le moment.",
+    "photoIncluded": "Photo incluse",
+    "defaultType": "Signalement",
+    "time": {
+      "justNow": "À l'instant",
+      "minutes": "Il y a {{count}} min",
+      "hours": "Il y a {{count}}h",
+      "days": "Il y a {{count}}j",
+      "unknown": "Date inconnue"
+    }
+  },
+  "categories": {
+    "title": "Toutes les catégories",
+    "subtitle": "Explorez les entreprises par catégorie",
+    "searchPlaceholder": "Rechercher une catégorie...",
+    "viewGrid": "Vue grille",
+    "viewList": "Vue liste",
+    "noResults": "Aucune catégorie trouvée",
+    "backToHome": "Retour à l'accueil"
+  },
+  "category": {
+    "title": "Entreprises",
+    "businesses": "entreprises",
+    "searchPlaceholder": "Rechercher une entreprise...",
+    "noBusinesses": "Aucune entreprise dans cette catégorie",
+    "registerBusiness": "Inscrire mon entreprise",
+    "backToHome": "Retour à l'accueil",
+    "backToCategories": "Retour aux catégories"
+  },
+  "business": {
+    "rating": "Note",
+    "reviews": "avis",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "website": "Site web",
+    "schedule": "Horaires",
+    "description": "Description",
+    "getDirections": "Itinéraire",
+    "call": "Appeler",
+    "share": "Partager"
+  },
+  "footer": {
+    "about": "À propos",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "adminAccess": "Accès administration"
+  },
+  "language": {
+    "french": "Français",
+    "english": "English",
+    "changeLanguage": "Changer de langue"
+  }
+}
+

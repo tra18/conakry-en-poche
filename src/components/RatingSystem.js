@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Star, ThumbsUp, ThumbsDown, MessageCircle, Image, Send } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const RatingSystem = ({ businessId, businessName, onReviewSubmit }) => {
   const [rating, setRating] = useState(0);
@@ -27,7 +28,10 @@ const RatingSystem = ({ businessId, businessName, onReviewSubmit }) => {
 
   const handleSubmit = async () => {
     if (rating === 0) {
-      alert('Veuillez donner une note');
+      toast.error('Veuillez donner une note', {
+        icon: '⭐',
+        duration: 3000
+      });
       return;
     }
 
@@ -53,10 +57,26 @@ const RatingSystem = ({ businessId, businessName, onReviewSubmit }) => {
       setReview('');
       setImages([]);
       
-      alert('Avis soumis avec succès !');
+      toast.success('Avis soumis avec succès !', {
+        icon: '✅',
+        duration: 4000,
+        style: {
+          borderRadius: '10px',
+          background: '#10b981',
+          color: '#fff',
+        },
+      });
     } catch (error) {
       console.error('Error submitting review:', error);
-      alert('Erreur lors de la soumission de l\'avis');
+      toast.error('Erreur lors de la soumission de l\'avis', {
+        icon: '❌',
+        duration: 4000,
+        style: {
+          borderRadius: '10px',
+          background: '#ef4444',
+          color: '#fff',
+        },
+      });
     } finally {
       setIsSubmitting(false);
     }

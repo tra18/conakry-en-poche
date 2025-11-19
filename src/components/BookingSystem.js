@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, Users, Phone, Mail, MapPin, CreditCard, CheckCircle } from 'lucide-react';
+import { useBooking } from '../contexts/BookingContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const BookingSystem = ({ business, onBookingSubmit }) => {
+  const { createBooking } = useBooking();
+  const { currentUser } = useAuth();
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [partySize, setPartySize] = useState(1);
@@ -75,6 +79,9 @@ const BookingSystem = ({ business, onBookingSubmit }) => {
         timestamp: new Date().toISOString()
       };
 
+      // Utiliser le contexte de réservation
+      await createBooking(bookingData);
+      
       if (onBookingSubmit) {
         await onBookingSubmit(bookingData);
       }
